@@ -10,10 +10,19 @@
                 test-helpers.unit/deftest-sub  clojure.core/defn
                 taoensso.tufte/defnp           clojure.core/defn}
  :linters      {:consistent-alias  {:level   :error
-                                    :aliases {clojure.string  string
-                                              clojure.set     set
-                                              clojure.walk    walk
-                                              taoensso.timbre log}}
+                                    :aliases {clojure.set                   set
+                                              clojure.string                string
+                                              clojure.test.check.generators gen
+                                              clojure.walk                  walk
+                                              malli.core                    malli
+                                              malli.dev.pretty              malli.pretty
+                                              malli.dev.virhe               malli.virhe
+                                              malli.error                   malli.error
+                                              malli.generator               malli.generator
+                                              malli.transform               malli.transform
+                                              malli.util                    malli.util
+                                              taoensso.timbre               log
+                                              utils.schema                  utils.schema}}
                 :shadowed-var      {:level   :error
                                     ;; We temporarily use :include to define an
                                     ;; allowlist of core Clojure vars. In the

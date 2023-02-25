@@ -1,15 +1,17 @@
 (ns status-im2.contexts.quo-preview.preview
   (:require [camel-snake-kebab.core :as camel-snake-kebab]
             [clojure.string :as string]
-            [status-im2.contexts.quo-preview.common :as common]
+            [malli.core :as malli]
+            malli.util
             [quo2.core :as quo]
             [quo2.foundations.colors :as colors]
-            [react-native.safe-area :as safe-area]
             [quo2.theme :as quo.theme]
             [react-native.blur :as blur]
             [react-native.core :as rn]
+            [react-native.safe-area :as safe-area]
             [reagent.core :as reagent]
             [status-im2.common.resources :as resources]
+            [status-im2.contexts.quo-preview.common :as common]
             [status-im2.contexts.quo-preview.style :as style]
             utils.number)
   (:require-macros status-im2.contexts.quo-preview.preview))
@@ -186,6 +188,67 @@
          :number  [customizer-number descriptor]
          :select  [customizer-select descriptor]
          nil)]))])
+
+(defn generate-descriptor
+  "Returns a descriptor vector, according to function schema `?schema`.
+
+  A useful (not implemented) improvement would be to allow the schema to specify
+  custom properties to affect the output descriptor. For example, for a map
+  schema, the developer may want to customize the field name:
+
+  [:map
+   [:amount [:int {:preview/name \"Total amount\"}]]]
+
+  With this sort of capability, we can start to consider generating preview
+  namespaces on-the-fly without any manual code."
+  [?schema]
+  (let [?args (rest (second (malli/form ?schema)))]
+    (->>
+      ?args
+      (mapcat
+       (fn [?arg]
+         (case (first ?arg)
+           :map
+           (->> (malli.util/keys ?arg)
+                (map
+                 (fn [schema-key]
+                   (let [?schema     (malli.util/get ?arg schema-key)
+                         schema-type (malli/type ?schema)]
+                     (cond
+                       (= schema-type :enum)
+                       (let [children (malli/children ?schema)]
+                         {:key     schema-key
+                          :type    :select
+                          :options (mapv (fn [child]
+                                           {:key child})
+                                         children)})
+
+                       (= schema-type :boolean)
+                       {:key  schema-key
+                        :type :boolean}
+
+                       (= schema-type :string)
+                       {:key  schema-key
+                        :type :text}
+
+                       (= schema-type :re)
+                       {:key  schema-key
+                        :type :text}
+
+                       (and (= schema-type ::malli/schema)
+                            (= schema-key :theme))
+                       {:key     schema-key
+                        :type    :select
+                        :options [{:key :light}
+                                  {:key :dark}]}
+
+                       :else
+                       (println "Unsupported type" schema-type schema-key)))))
+                (remove nil?))
+           (do
+             (println "Unsupported schema" (first ?arg))
+             nil))))
+      (into []))))
 
 (defn customization-color-option
   ([]

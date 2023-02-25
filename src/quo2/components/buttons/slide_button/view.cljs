@@ -10,7 +10,8 @@
     [reagent.core :as reagent]
     [oops.core :as oops]
     [react-native.reanimated :as reanimated]
-    [quo2.components.buttons.slide-button.constants :as constants]))
+    [quo2.components.buttons.slide-button.constants :as constants]
+    utils.schema))
 
 (defn- f-slider
   [{:keys [disabled?]}]
@@ -76,16 +77,21 @@
              {:color colors/white
               :size  20}]]]]]))))
 
-(defn view
-  "Options
-  - `on-complete`         Callback called when the sliding is complete
-  - `disabled?`           Boolean that disables the button
-                          (_and gestures_)
-  - `size`                `:small`/`:large`
-  - `track-text`          Text that is shown on the track
-  - `track-icon`          Key of the icon shown on the track
-                          (e.g. `:face-id`)
-  - `customization-color` Customization color
-  "
+(defn- view-internal
   [props]
   [:f> f-slider props])
+
+(def view
+  (utils.schema/instrument
+   ::slide-button
+   [:=>
+    [:cat
+     [:map {:closed true}
+      [:on-complete {:optional true} fn?]
+      [:disabled? {:optional true} :boolean]
+      [:size {:optional true} [:enum :small :large]]
+      [:track-text :string]
+      [:track-icon :schema.common/icon-name]
+      [:customization-color {:optional true} :schema.common/color]]]
+    :any]
+   view-internal))

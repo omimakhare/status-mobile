@@ -5,6 +5,8 @@
     [react-native.core :as rn]
     [utils.number]
     [quo2.theme :as quo.theme]
+    utils.schema
+    malli.util
     [quo2.components.counter.counter.style :as style]))
 
 (defn- view-internal
@@ -34,4 +36,19 @@
        :style  (when (= type :default) {:color colors/white})}
       label]]))
 
-(def view (quo.theme/with-theme view-internal))
+(def view
+  (utils.schema/instrument
+   ::counter
+   [:=>
+    [:cat
+     (malli.util/optional-keys
+      [:map {:closed true}
+       [:accessibility-label :keyword]
+       [:container-style :schema.common/style]
+       [:customization-color :schema.common/color]
+       [:max-value :int]
+       [:theme :schema.common/theme]
+       [:type [:enum :default :secondary :grey :outline]]])
+     [:maybe [:or :int :string]]]
+    :any]
+   (quo.theme/with-theme view-internal)))

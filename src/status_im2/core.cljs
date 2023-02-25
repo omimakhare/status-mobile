@@ -14,6 +14,7 @@
     [status-im2.config :as config]
     [status-im2.setup.dev :as dev]
     [status-im2.setup.global-error :as global-error]
+    [status-im2.setup.schema :as schema]
     [status-im2.common.log :as log]
     [status-im.async-storage.core :as async-storage]
     [native-module.core :as native-module]
@@ -57,5 +58,6 @@
   (reanimated/enable-layout-animations true)
 
   (dev/setup)
+  (schema/setup!)
 
   (re-frame/dispatch-sync [:app-started]))

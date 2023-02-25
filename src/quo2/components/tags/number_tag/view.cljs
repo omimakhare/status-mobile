@@ -3,7 +3,8 @@
             [quo2.components.markdown.text :as text]
             [react-native.core :as rn]
             [quo2.components.tags.number-tag.style :as style]
-            [quo2.theme :as quo.theme]))
+            [quo2.theme :as quo.theme]
+            utils.schema))
 
 (defn view-internal
   [{:keys [number size blur? theme] :as props}]
@@ -22,4 +23,15 @@
         {:size  icon-size
          :color (style/get-color blur? theme)}])]))
 
-(def view (quo.theme/with-theme view-internal))
+(def ?schema
+  [:=>
+   [:cat
+    [:map
+     [:type [:enum :rounded :squared]]
+     [:number [:re #"^\d+$"]]
+     [:size [:enum :size/s-32 :size/s-24 :size/s-20 :size/s-16 :size/s-14]]
+     [:theme {:optional true} :schema.common/theme]
+     [:blur? {:optional true} :boolean]]]
+   :any])
+
+(def view (utils.schema/instrument ::number-tag ?schema (quo.theme/with-theme view-internal)))

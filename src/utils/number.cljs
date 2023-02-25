@@ -1,4 +1,8 @@
-(ns utils.number)
+(ns utils.number
+  (:require malli.error
+            malli.transform
+            malli.util
+            utils.schema))
 
 (defn naive-round
   "Quickly and naively round number `n` up to `decimal-places`.
@@ -13,6 +17,9 @@
   (let [scale (Math/pow 10 decimal-places)]
     (/ (Math/round (* n scale))
        scale)))
+
+(utils.schema/=> naive-round
+  [:=> [:cat :int :int] :int])
 
 (defn parse-int
   "Parses `n` as an integer. Defaults to zero or `default` instead of NaN."

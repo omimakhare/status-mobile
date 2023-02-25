@@ -2,8 +2,9 @@
   (:require [quo2.components.icon :as icon]
             [quo2.components.markdown.text :as text]
             [quo2.foundations.colors :as colors]
+            [quo2.theme :as quo.theme]
             [react-native.core :as rn]
-            [quo2.theme :as quo.theme]))
+            utils.schema))
 
 (def default-container-style
   {:border-radius 20
@@ -127,4 +128,23 @@
        no-icon?
        container-style])))
 
-(def status-tag (quo.theme/with-theme status-tag-internal))
+(def ?schema
+  [:=>
+   [:cat
+    [:map {:closed true}
+     [:size [:enum :small :large]]
+     [:label :string]
+     [:theme {:optional true} :schema.common/theme]
+     [:blur? {:optional true} :boolean]
+     [:no-icon? {:optional true} :boolean]
+     [:status
+      [:maybe
+       [:map
+        [:type [:enum :positive :negative :pending]]]]]]]
+   :any])
+
+(def status-tag
+  (utils.schema/instrument
+   ::status-tags
+   ?schema
+   (quo.theme/with-theme status-tag-internal)))

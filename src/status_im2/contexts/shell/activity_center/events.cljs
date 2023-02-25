@@ -9,7 +9,8 @@
             [taoensso.timbre :as log]
             [utils.collection :as collection]
             [utils.i18n :as i18n]
-            [utils.re-frame :as rf]))
+            [utils.re-frame :as rf]
+            utils.schema))
 
 (def defaults
   {:filter-status          :unread
@@ -118,6 +119,19 @@
                       :on-success [:activity-center.notifications/mark-as-read-success notification]
                       :on-error   [:activity-center/process-notification-failure notification-id
                                    :notification/mark-as-read]}]}))
+
+;; Due to reasons yet to be identified, the function defined by `rf/defn` has a
+;; signature that requires a convoluted schema definition.
+;;
+;; In practice, if it turns out this is necessary for instrumenting all event
+;; handlers defined by `rf/defn`, then we'll probably define a separate macro
+;; named `utils.schema/instrument-event`.
+(utils.schema/=> mark-as-read
+  [:function
+   [:=> [:cat :schema.re-frame/cofx :string]
+    [:maybe :schema.re-frame/effects]]
+   [:=> [:cat :schema.re-frame/cofx :string [:* :any]]
+    [:maybe :schema.re-frame/effects]]])
 
 (rf/defn mark-as-read-success
   {:events [:activity-center.notifications/mark-as-read-success]}
@@ -527,7 +541,8 @@
                        (not dismissed))
                   (toasts/upsert cofx
                                  {:user            user-avatar
-                                  :user-public-key chat-id ;; user public key who accepted the request
+                                  :user-public-key chat-id ;; user public key who accepted the
+                                                           ;; request
                                   :icon-color      colors/success-50-opa-40
                                   :title           (i18n/label :t/contact-request-accepted-toast
                                                                {:name (or name (:alias message))})})
