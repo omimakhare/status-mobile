@@ -3,6 +3,7 @@
             [status-im2.constants :as constants]
             [status-im2.contexts.shell.activity-center.notification.common.style :as common-style]
             [status-im2.contexts.shell.activity-center.notification.common.view :as common]
+            [status-im2.common.toasts.events :as toasts]
             [utils.datetime :as datetime]
             [utils.i18n :as i18n]
             [utils.re-frame :as rf]))
@@ -60,7 +61,7 @@
                 timestamp]}           notification
         community                     (rf/sub [:communities/community community-id])
         {:keys [header-text context]} (get-header-text-and-context community
-                                                                   membership-status)]
+                                                                   membership-status)] 
     [swipeable props
      [quo/activity-log
       {:title               header-text

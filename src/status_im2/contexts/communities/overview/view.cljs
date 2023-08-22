@@ -92,12 +92,6 @@
                (map #(channel-chat-item community-id community-color %))
                chats))]))])
 
-(defn request-to-join-text
-  [is-open?]
-  (if is-open?
-    (i18n/label :t/join-open-community)
-    (i18n/label :t/request-to-join-community)))
-
 (defn get-access-type
   [access]
   (case access
@@ -166,13 +160,11 @@
         (i18n/label :t/join-open-community)]])))
 
 (defn join-community
-  [{:keys [joined can-join? color permissions token-permissions] :as community}
+  [{:keys [joined color permissions token-permissions] :as community}
    pending?]
   (let [access-type     (get-access-type (:access permissions))
         unknown-access? (= access-type :unknown-access)
-        invite-only?    (= access-type :invite-only)
-        is-open?        (= access-type :open)
-        node-offline?   (and can-join? (not joined) pending?)]
+        invite-only?    (= access-type :invite-only)]
     [:<>
      (when-not (or joined pending? invite-only? unknown-access?)
        (if token-permissions
@@ -182,20 +174,7 @@
            :accessibility-label :show-request-to-join-screen-button
            :customization-color color
            :icon-left           :i/communities}
-          (request-to-join-text is-open?)]))
-
-     (when (and (not (or joined pending? token-permissions)) (not (or is-open? node-offline?)))
-       [quo/text
-        {:size  :paragraph-2
-         :style style/review-notice}
-        (i18n/label :t/community-admins-will-review-your-request)])
-
-     (when node-offline?
-       [quo/information-box
-        {:type  :informative
-         :icon  :i/info
-         :style {:margin-top 12}}
-        (i18n/label :t/request-processed-after-node-online)])]))
+          (i18n/label :t/request-to-join-community)]))]))
 
 (defn status-tag
   [pending? joined]
