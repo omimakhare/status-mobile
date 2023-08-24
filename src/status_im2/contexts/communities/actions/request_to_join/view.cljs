@@ -17,7 +17,7 @@
                   can-join?
                   can-request-access?
                   requested-to-join-at]} (rf/sub [:get-screen-params])
-          pending?               (rf/sub [:communities/my-pending-request-to-join id])]
+          pending?                       (rf/sub [:communities/my-pending-request-to-join id])]
       [rn/view {:flex 1}
        [gesture/scroll-view {:style {:flex 1}}
         [rn/view style/page-container

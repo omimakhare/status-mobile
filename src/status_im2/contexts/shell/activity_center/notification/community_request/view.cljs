@@ -61,7 +61,7 @@
                 timestamp]}           notification
         community                     (rf/sub [:communities/community community-id])
         {:keys [header-text context]} (get-header-text-and-context community
-                                                                   membership-status)] 
+                                                                   membership-status)]
     [swipeable props
      [quo/activity-log
       {:title               header-text
