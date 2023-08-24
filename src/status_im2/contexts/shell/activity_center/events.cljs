@@ -463,8 +463,8 @@
   {:events [:activity-center/mark-as-seen-success]}
   [{:keys [db]} response]
   {:db (assoc-in db
-        [:activity-center :seen?]
-        (get-in response [:activityCenterState :hasSeen]))})
+                 [:activity-center :seen?]
+                 (get-in response [:activityCenterState :hasSeen]))})
 
 (rf/defn mark-as-seen-error
   {:events [:activity-center/mark-as-seen-error]}
@@ -487,8 +487,8 @@
   {:events [:activity-center.notifications/fetch-unread-count-success]}
   [{:keys [db]} response]
   {:db (assoc-in db
-        [:activity-center :unread-counts-by-type]
-        (activities/parse-notification-counts-response response))})
+                 [:activity-center :unread-counts-by-type]
+                 (activities/parse-notification-counts-response response))})
 
 (rf/defn notifications-fetch-unread-count-error
   {:events [:activity-center.notifications/fetch-unread-count-error]}
@@ -496,18 +496,21 @@
   (log/error "Failed to fetch count of notifications" {:error error})
   nil)
 
-;;;; Toasts
 
+
+;;;; Toasts
 (rf/defn show-toasts
   {:events [:activity-center.notifications/show-toasts]}
   [{:keys [db]} new-notifications]
-  (let [my-public-key (get-in db [:profile/profile :public-key])]
-    (reduce (fn [cofx {:keys [author chat-id type accepted dismissed message name] :as x}]
+  (let [my-public-key (get-in db [:profile/profile :public-key])
+        view-id       (get-in db [:view-id])]
+    (reduce (fn [cofx {:keys [author chat-id community-id membership-status type accepted dismissed message name] :as x}]
               (let [user-avatar {:full-name         name
                                  :status-indicator? true
                                  :online?           nil
                                  :size              :small
-                                 :ring?             true}]
+                                 :ring?             true}
+                    community  (rf/sub [:communities/community community-id])]
                 (cond
                   (and (not= author my-public-key)
                        (= type types/contact-request)
@@ -531,6 +534,16 @@
                                   :icon-color      colors/success-50-opa-40
                                   :title           (i18n/label :t/contact-request-accepted-toast
                                                                {:name (or name (:alias message))})})
+
+                  (and (= type types/community-request)
+                       (= membership-status constants/activity-center-membership-status-accepted))
+                  (toasts/upsert cofx
+                                 {:icon       :correct
+                                  :icon-color colors/success-50-opa-40
+                                  :title      (i18n/label (if (= view-id :community-overview)
+                                                            :t/joined-community
+                                                            :t/request-to-join-accepted)
+                                                          {:community (:name community)})})
                   :else
                   cofx)))
             {:db db}
