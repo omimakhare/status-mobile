@@ -1,7 +1,6 @@
 (ns status-im.multiaccounts.logout.core
   (:require [native-module.core :as native-module]
             [re-frame.core :as re-frame]
-            [status-im.multiaccounts.core :as multiaccounts]
             [status-im.wallet.core :as wallet]
             [status-im2.common.keychain.events :as keychain]
             [status-im2.db :as db]
@@ -34,7 +33,7 @@
                :shell/reset-state                    nil
                :hide-popover                         nil
                ::logout                              nil
-               ::multiaccounts/webview-debug-changed false
+               :profile.settings/webview-debug-changed false
                :keychain/clear-user-password         key-uid
                :profile/get-profiles-overview        #(rf/dispatch
                                                        [:profile/get-profiles-overview-success %])}

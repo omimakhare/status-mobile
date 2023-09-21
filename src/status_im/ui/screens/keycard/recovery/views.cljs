@@ -14,9 +14,7 @@
             [status-im.ui.screens.keycard.pin.views :as pin.views]
             [status-im.ui.screens.keycard.styles :as styles]
             [status-im.ui.screens.keycard.views :as keycard.views]
-            [status-im.utils.core :as utils.core]
-            [status-im.utils.gfycat.core :as gfy]
-            [status-im.utils.identicon :as identicon])
+            [status-im.utils.core :as utils.core])
   (:require-macros [status-im.utils.views :refer [defview letsubs]]))
 
 (defn intro
@@ -206,24 +204,13 @@
        [react/view
         {:margin-horizontal 16
          :flex-direction    :column}
-        [react/view
-         {:justify-content :center
-          :align-items     :center
-          :margin-bottom   11}
-         [react/image
-          {:source {:uri (identicon/identicon whisper-public-key)}
-           :style  {:width         61
-                    :height        61
-                    :border-radius 30
-                    :border-width  1
-                    :border-color  colors/black-transparent}}]]
         [react/text
          {:style           {:text-align  :center
                             :color       colors/black
                             :font-weight "500"}
           :number-of-lines 1
           :ellipsize-mode  :middle}
-         (gfy/generate-gfy whisper-public-key)]
+         whisper-public-key]
         [quo/text
          {:style           {:margin-top 4}
           :monospace       true

@@ -4,7 +4,7 @@
             [re-frame.core :as re-frame]
             [native-module.core :as native-module]
             [status-im2.navigation.events :as navigation]
-            [status-im2.contexts.profile.login.events :as login]))
+            [status-im2.contexts.profile.login.events :as profile.login]))
 
 (re-frame/reg-fx
  :profile/get-profiles-overview
@@ -45,7 +45,7 @@
                 (init-profiles-overview profiles key-uid)
                 ;;we check if biometric is available, and try to login with it,
                 ;;if succeed "node.login" signal will be triggered
-                (login/login-with-biometric-if-available key-uid)))
+                (profile.login/login-with-biometric-if-available key-uid)))
     (navigation/init-root cofx :intro)))
 
 (rf/defn update-setting-from-backup
@@ -57,3 +57,4 @@
   {:events [:profile/update-profile-from-backup]}
   [_ {{:keys [ensUsernameDetails]} :backedUpProfile}]
   {:dispatch [:ens/update-usernames ensUsernameDetails]})
+

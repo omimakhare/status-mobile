@@ -4,28 +4,28 @@
     [utils.security.core :as security]
     [re-frame.core :as re-frame]
     [native-module.core :as native-module]
-    [status-im2.navigation.events :as navigation]
-    [status-im2.common.keychain.events :as keychain]
-    [status-im2.common.biometric.events :as biometric]
-    [status-im2.contexts.profile.config :as profile.config]
     [taoensso.timbre :as log]
-    [status-im2.config :as config]
-    [status-im.data-store.settings :as data-store.settings]
-    [status-im.communities.core :as communities]
-    [status-im2.common.log :as logging]
-    [status-im2.contexts.shell.activity-center.events :as activity-center]
-    [status-im.data-store.chats :as data-store.chats]
-    [status-im2.contexts.profile.rpc :as profile.rpc]
-    [status-im.multiaccounts.core :as multiaccounts]
-    [status-im.transport.core :as transport]
-    [status-im2.contexts.contacts.events :as contacts]
-    [status-im.mobile-sync-settings.core :as mobile-network]
-    [status-im2.contexts.chat.messages.link-preview.events :as link-preview]
-    [status-im.data-store.visibility-status-updates :as visibility-status-updates-store]
-    [status-im.data-store.switcher-cards :as switcher-cards-store]
     [status-im.browser.core :as browser]
+    [status-im.communities.core :as communities]
+    [status-im.data-store.chats :as data-store.chats]
+    [status-im.data-store.switcher-cards :as switcher-cards-store]
+    [status-im.data-store.settings :as data-store.settings]
+    [status-im.data-store.visibility-status-updates :as visibility-status-updates-store]
     [status-im.group-chats.core :as group-chats]
-    [status-im2.contexts.push-notifications.events :as notifications]))
+    [status-im.mobile-sync-settings.core :as mobile-network]
+    [status-im.transport.core :as transport]
+    [status-im2.common.biometric.events :as biometric]
+    [status-im2.common.keychain.events :as keychain]
+    [status-im2.common.log :as logging]
+    [status-im2.config :as config]
+    [status-im2.contexts.chat.messages.link-preview.events :as link-preview]
+    [status-im2.contexts.contacts.events :as contacts]
+    [status-im2.contexts.profile.config :as profile.config]
+    [status-im2.contexts.profile.settings.events :as profile.settings.events]
+    [status-im2.contexts.profile.rpc :as profile.rpc]
+    [status-im2.contexts.push-notifications.events :as notifications]
+    [status-im2.contexts.shell.activity-center.events :as activity-center]
+    [status-im2.navigation.events :as navigation]))
 
 (re-frame/reg-fx
  ::login
@@ -61,7 +61,7 @@
       :else
       (rf/merge
        cofx
-       (multiaccounts/switch-theme nil :shell-stack)
+       (profile.settings.events/switch-theme nil :shell-stack)
        (navigation/init-root :shell-stack)))))
 
 ;; login phase 1, we want to load and show chats faster so we split login into 2 phases
@@ -70,13 +70,13 @@
   (let [{:networks/keys [current-network networks]
          :as            settings}
         (data-store.settings/rpc->settings settings)
-        profile (profile.rpc/rpc->profiles-overview account)]
+        profile-overview (profile.rpc/rpc->profiles-overview account)]
     (rf/merge cofx
               {:db (assoc db
                           :chats/loading?           true
                           :networks/current-network current-network
                           :networks/networks        (merge networks config/default-networks-by-id)
-                          :profile/profile          (merge profile settings))}
+                          :profile/profile          (merge profile-overview settings))}
               (notifications/load-preferences)
               (data-store.chats/fetch-chats-preview
                {:on-success
@@ -119,8 +119,8 @@
               (browser/initialize-browser)
               (mobile-network/on-network-status-change)
               (group-chats/get-group-chat-invitations)
-              (multiaccounts/get-profile-picture)
-              (multiaccounts/switch-preview-privacy-mode-flag)
+              (profile.settings.events/get-profile-picture)
+              (profile.settings.events/change-preview-privacy)
               (link-preview/request-link-preview-whitelist)
               (visibility-status-updates-store/fetch-visibility-status-updates-rpc)
               (switcher-cards-store/fetch-switcher-cards-rpc))))

@@ -2,7 +2,7 @@
   (:require [quo.core :as quo]
             [quo.design-system.colors :as colors]
             [re-frame.core :as re-frame]
-            [status-im.multiaccounts.core :as multiaccounts]
+            [status-im2.contexts.profile.utils :as profile.utils]
             [status-im.ui.components.chat-icon.screen :as chat-icon.screen]
             [status-im.ui.components.invite.views :as invite]
             [status-im.ui.components.list.views :as list.views]
@@ -20,7 +20,7 @@
                  {:public-key          public-key
                   :full-name           primary-name
                   :customization-color (or customization-color :primary)
-                  :photo-path          (multiaccounts/displayed-photo contact)}]
+                  :photo-path          (profile.utils/photo contact)}]
       :chevron  true
       :on-press #(re-frame/dispatch [:chat.ui/show-profile public-key])}]))
 

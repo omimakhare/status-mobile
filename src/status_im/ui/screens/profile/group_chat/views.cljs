@@ -4,7 +4,6 @@
             [re-frame.core :as re-frame]
             [status-im2.constants :as constants]
             [utils.i18n :as i18n]
-            [status-im.multiaccounts.core :as multiaccounts]
             [status-im.ui.components.chat-icon.screen :as chat-icon]
             [status-im.ui.components.common.common :as components.common]
             [status-im.ui.components.list.views :as list]
@@ -15,6 +14,7 @@
             [status-im.ui.screens.chat.sheets :as chat.sheets]
             [status-im.ui.screens.chat.utils :as chat.utils]
             [status-im.ui.screens.profile.components.styles :as profile.components.styles]
+            [status-im2.contexts.profile.utils :as profile.utils]
             [utils.debounce :as debounce])
   (:require-macros [status-im.utils.views :refer [defview letsubs]]))
 
@@ -116,7 +116,7 @@
        (chat.utils/format-author-old contact)]
       [react/view {:flex-direction :row :align-items :flex-end}
        [react/view {:padding-left 16 :padding-top 4}
-        [photos/photo (multiaccounts/displayed-photo contact) {:size 36}]]]]
+        [photos/photo (profile.utils/photo contact) {:size 36}]]]]
      [quo/list-item
       {:theme               :accent
        :disabled            (not allow-adding-members?)
@@ -135,9 +135,10 @@
 
 (defn contacts-list-item
   [{:keys [from] :as invitation}]
-  (let [contact (or @(re-frame/subscribe [:contacts/contact-by-identity from]) {:public-key from})]
+  (let [{:keys [primary-name] :as contact} (or @(re-frame/subscribe [:contacts/contact-by-identity from])
+                                               {:public-key from})]
     [quo/list-item
-     {:title    (multiaccounts/displayed-name contact)
+     {:title    primary-name
       :icon     [chat-icon/contact-icon-contacts-tab contact]
       :on-press #(re-frame/dispatch [:bottom-sheet/show-sheet-old
                                      {:content (fn []

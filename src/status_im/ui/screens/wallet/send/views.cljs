@@ -6,7 +6,6 @@
             [re-frame.core :as re-frame]
             [status-im.commands.core :as commands]
             [utils.i18n :as i18n]
-            [status-im.multiaccounts.core :as multiaccounts]
             [status-im.ui.components.bottom-panel.views :as bottom-panel]
             [status-im.ui.components.chat-icon.screen :as chat-icon]
             [status-im.ui.components.icons.icons :as icons]
@@ -76,14 +75,14 @@
                                       :content-height 300}]))}])
 
 (defn render-contact
-  [contact from-chat?]
+  [{:keys [address primary-name] :as contact} from-chat?]
   (if from-chat?
     [quo/list-item
-     {:title    (multiaccounts/displayed-name contact)
+     {:title    primary-name
       :subtitle [quo/text
                  {:monospace true
                   :color     :secondary}
-                 (utils/get-shortened-checksum-address (:address contact))]
+                 (utils/get-shortened-checksum-address address)]
       :icon     [chat-icon/contact-icon-contacts-tab contact]}]
     [quo/list-item
      (merge {:title               (if-not contact
@@ -92,7 +91,7 @@
                                      {:size      :large
                                       :monospace true}
                                      (utils/get-shortened-checksum-address
-                                      (if (string? contact) contact (:address contact)))])
+                                      (if (string? contact) contact address))])
              :accessibility-label :choose-recipient-button
              :on-press            #(do
                                      (re-frame/dispatch [:dismiss-keyboard])

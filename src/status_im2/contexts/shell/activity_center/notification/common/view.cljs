@@ -3,8 +3,8 @@
             [quo2.foundations.colors :as colors]
             [react-native.core :as rn]
             [react-native.gesture :as gesture]
-            [status-im.multiaccounts.core :as multiaccounts]
             [status-im2.contexts.shell.activity-center.notification.common.style :as style]
+            [status-im2.contexts.profile.utils :as profile.utils]
             [utils.i18n :as i18n]
             [utils.re-frame :as rf]))
 
@@ -15,7 +15,7 @@
      {:blur?           true
       :size            24
       :full-name       primary-name
-      :profile-picture (multiaccounts/displayed-photo contact)}]))
+      :profile-picture (profile.utils/photo contact)}]))
 
 (defn- render-swipe-action
   [{:keys [active-swipeable

@@ -10,7 +10,6 @@
     [status-im.ethereum.mnemonic :as mnemonic]
     [status-im.ethereum.stateofus :as stateofus]
     [utils.i18n :as i18n]
-    [status-im.multiaccounts.core :as multiaccounts]
     [status-im.multiaccounts.update.core :as multiaccounts.update]
     [native-module.core :as native-module]
     [status-im.ui.components.list-selection :as list-selection]
@@ -123,7 +122,7 @@
    (native-module/verify
     address
     hashed-password
-    #(re-frame/dispatch [:wallet.accounts/add-new-account-password-verifyied % hashed-password]))))
+    #(re-frame/dispatch [:wallet.accounts/add-new-account-password-verified % hashed-password]))))
 
 (re-frame/reg-fx
  ::generate-account
@@ -149,6 +148,11 @@
     (string/trim (security/unmask private-key))
     (store-account key-uid constants/path-default-wallet hashed-password :key))))
 
+(re-frame/reg-fx
+ ::validate-mnemonic
+ (fn [[passphrase callback]]
+   (native-module/validate-mnemonic passphrase callback)))
+
 (rf/defn generate-new-account
   [{:keys [db]} hashed-password]
   (let [{:keys [key-uid wallet-root-address]}
@@ -164,10 +168,10 @@
 
 (rf/defn import-new-account-seed
   [{:keys [db]} passphrase hashed-password]
-  {:db                               (assoc-in db [:add-account :step] :generating)
-   ::multiaccounts/validate-mnemonic [(security/safe-unmask-data passphrase)
-                                      #(re-frame/dispatch [:wallet.accounts/seed-validated
-                                                           % passphrase hashed-password])]})
+  {:db                 (assoc-in db [:add-account :step] :generating)
+   ::validate-mnemonic [(security/safe-unmask-data passphrase)
+                        #(re-frame/dispatch [:wallet.accounts/seed-validated % passphrase
+                                             hashed-password])]})
 
 (rf/defn new-account-seed-validated
   {:events [:wallet.accounts/seed-validated]}
@@ -253,8 +257,8 @@
                        {:address (eip55/address->checksum (address/normalized-hex address))
                         :type    :watch})))
 
-(rf/defn add-new-account-password-verifyied
-  {:events [:wallet.accounts/add-new-account-password-verifyied]}
+(rf/defn add-new-account-password-verified
+  {:events [:wallet.accounts/add-new-account-password-verified]}
   [{:keys [db] :as cofx} result hashed-password]
   (let [{:keys [error]} (types/json->clj result)]
     (if (not (string/blank? error))

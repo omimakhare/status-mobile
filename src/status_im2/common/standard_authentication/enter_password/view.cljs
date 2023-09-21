@@ -5,16 +5,16 @@
             [utils.re-frame :as rf]
             [status-im2.common.standard-authentication.enter-password.style :as style]
             [status-im2.common.standard-authentication.password-input.view :as password-input]
-            [status-im.multiaccounts.core :as multiaccounts]))
+            [status-im2.contexts.profile.utils :as profile.utils]))
 
 (defn view
   [{:keys [on-enter-password button-label]}]
   (let [{:keys [key-uid display-name
                 customization-color]
-         :as   account}                     (rf/sub [:profile/multiaccount])
+         :as   profile}                     (rf/sub [:profile/profile-with-image])
         {:keys [error processing password]} (rf/sub [:profile/login])
         sign-in-enabled?                    (rf/sub [:sign-in-enabled?])
-        profile-picture                     (multiaccounts/displayed-photo account)]
+        profile-picture                     (profile.utils/photo profile)]
     [:<>
      [rn/view {:style style/enter-password-container}
       [rn/view

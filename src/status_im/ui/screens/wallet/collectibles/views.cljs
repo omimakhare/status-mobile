@@ -6,7 +6,6 @@
             [re-frame.core :as re-frame]
             [reagent.core :as reagent]
             [utils.i18n :as i18n]
-            [status-im.multiaccounts.core :as multiaccounts]
             [status-im.multiaccounts.update.core :as multiaccounts.update]
             [status-im.react-native.resources :as resources]
             [status-im.ui.components.accordion :as accordion]
@@ -306,8 +305,8 @@
         [quo/list-item
          {:title (i18n/label :t/use-as-profile-picture)
           :theme :accent
-          :on-press #(re-frame/dispatch
-                      [::multiaccounts/save-profile-picture-from-url (:image_url nft)])
+          :on-press #(re-frame/dispatch [:profile.settings/save-profile-picture-from-url
+                                         (:image_url nft)])
           :icon :main-icons/profile
           :accessibility-label
           :set-nft-as-pfp}]])]))

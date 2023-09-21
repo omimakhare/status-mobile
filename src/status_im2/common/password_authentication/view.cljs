@@ -2,25 +2,25 @@
   (:require [react-native.core :as rn]
             [quo2.core :as quo]
             [utils.re-frame :as rf]
-            [status-im.multiaccounts.core :as multiaccounts]
             [utils.i18n :as i18n]
             [reagent.core :as reagent]
+            [status-im2.contexts.profile.utils :as profile.utils]
             [native-module.core :as native-module]))
 
 (defn view
   []
   (let [entered-password (reagent/atom "")]
     (fn []
-      (let [account                (rf/sub [:profile/multiaccount])
-            {:keys [error button]} (rf/sub [:password-authentication])]
+      (let [{:keys [primary-name] :as profile} (rf/sub [:profile/profile-with-image])
+            {:keys [error button]}             (rf/sub [:password-authentication])]
         [rn/view {:padding-horizontal 20}
          [quo/text {:size :heading-1 :weight :semi-bold}
           (i18n/label :t/enter-password)]
          [rn/view {:style {:margin-top 8 :margin-bottom 20}}
           [quo/context-tag
            {:size            24
-            :profile-picture (multiaccounts/displayed-photo account)
-            :full-name       (multiaccounts/displayed-name account)}]]
+            :full-name       primary-name
+            :profile-picture (profile.utils/photo profile)}]]
          [quo/input
           {:type           :password
            :label          (i18n/label :t/profile-password)

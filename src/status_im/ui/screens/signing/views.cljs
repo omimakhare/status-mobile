@@ -9,7 +9,6 @@
     [status-im.ethereum.tokens :as tokens]
     [utils.i18n :as i18n]
     [status-im.keycard.common :as keycard.common]
-    [status-im.multiaccounts.core :as multiaccounts]
     [status-im.react-native.resources :as resources]
     [status-im.signing.eip1559 :as eip1559]
     [status-im.ui.components.bottom-panel.views :as bottom-panel]
@@ -32,16 +31,10 @@
   []
   [react/view {:height 1 :background-color colors/gray-lighter}])
 
-(defn displayed-name
-  [contact]
-  (if (or (:preferred-name contact) (:name contact))
-    (multiaccounts/displayed-name contact)
-    (utils/get-shortened-checksum-address (:address contact))))
-
 (defn contact-item
-  [title contact]
+  [title {:keys [address primary-name]}]
   [copyable-text/copyable-text-view
-   {:copied-text (:address contact)}
+   {:copied-text address}
    [quo/list-item
     {:title              title
      :title-prefix-width 45
@@ -51,7 +44,7 @@
                           {:ellipsize-mode  :middle
                            :number-of-lines 1
                            :monospace       true}
-                          (displayed-name contact)]}]])
+                          primary-name]}]])
 
 (defn token-item
   [{:keys [icon color] :as token} display-symbol]
@@ -102,7 +95,7 @@
        {:style           {:color colors/gray}
         :ellipsize-mode  :middle
         :number-of-lines 1} (i18n/label :t/to-capitalized) " "
-       [{:style {:color colors/black}} (displayed-name contact)]]
+       [{:style {:color colors/black}} (:primary-name contact)]]
       [react/text {:style {:margin-top 6 :color colors/gray}}
        (str fee " " fee-display-symbol " " (string/lower-case (i18n/label :t/network-fee)))])]
    [react/view {:padding-horizontal 24}

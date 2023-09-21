@@ -5,7 +5,7 @@
             [status-im.communities.core :as communities]
             [status-im2.constants :as constants]
             [utils.i18n :as i18n]
-            [status-im.multiaccounts.core :as multiaccounts]
+            [status-im2.contexts.profile.utils :as profile.utils]
             [status-im.ui.components.chat-icon.screen :as chat-icon]
             [status-im.ui.components.react :as react]
             [status-im.ui.components.topbar :as topbar]
@@ -67,7 +67,7 @@
       :accessibility-label :member-item
       :icon                [chat-icon/profile-photo-plus-dot-view
                             {:public-key public-key
-                             :photo-path (multiaccounts/displayed-photo member)}]
+                             :photo-path (profile.utils/photo member)}]
       :accessory           (when (not= public-key my-public-key)
                              [quo/button
                               {:on-press

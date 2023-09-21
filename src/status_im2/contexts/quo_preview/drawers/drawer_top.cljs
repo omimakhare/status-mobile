@@ -5,7 +5,7 @@
             [status-im2.contexts.quo-preview.preview :as preview]
             [utils.re-frame :as rf]
             [react-native.core :as rn]
-            [status-im.multiaccounts.core :as multiaccounts]))
+            [status-im2.contexts.profile.utils :as profile.utils]))
 
 (def descriptor
   [{:type    :select
@@ -37,7 +37,7 @@
 
 (defn view
   []
-  (let [account (rf/sub [:profile/multiaccount])
+  (let [profile (rf/sub [:profile/profile-with-image])
         state   (reagent/atom
                  {:blur?                false
                   :title                "Title"
@@ -54,7 +54,7 @@
                   :icon-avatar          :i/placeholder
                   :on-button-press      #(js/alert "on press")
                   :on-button-long-press #(js/alert "on long press")
-                  :profile-picture      (multiaccounts/displayed-photo account)})]
+                  :profile-picture      (profile.utils/photo profile)})]
     (fn []
       [preview/preview-container
        {:state                 state

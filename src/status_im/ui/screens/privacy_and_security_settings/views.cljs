@@ -62,7 +62,7 @@
        :active                  preview-privacy?
        :accessory               :switch
        :on-press                #(re-frame/dispatch
-                                  [:multiaccounts.ui/preview-privacy-mode-switched
+                                  [:profile.settings/change-preview-privacy
                                    ((complement boolean) preview-privacy?)])}]
      (when config/collectibles-enabled?
        [quo/list-item
@@ -109,7 +109,8 @@
          :subtitle           (i18n/label :t/webview-camera-permission-requests-subtitle)
          :subtitle-max-lines 2
          :on-press           #(re-frame/dispatch
-                               [:multiaccounts.ui/webview-permission-requests-switched
+                               [:profile.settings/update-value
+                                :webview-allow-permission-requests?
                                 ((complement boolean) webview-allow-permission-requests?)])}])
      [separator]
      [quo/list-header (i18n/label :t/privacy-photos)]
@@ -146,7 +147,7 @@
    {:active    (= value id)
     :accessory :radio
     :title     (get titles id)
-    :on-press  #(re-frame/dispatch [:multiaccounts.ui/profile-picture-show-to-switched id])}])
+    :on-press  #(re-frame/dispatch [:profile.settings/change-profile-pictures-show-to id])}])
 
 (views/defview profile-pic-show-to
   []
@@ -166,7 +167,8 @@
    {:active    (= value id)
     :accessory :radio
     :title     (get titles id)
-    :on-press  #(re-frame/dispatch [:multiaccounts.ui/appearance-profile-switched id])}])
+    :on-press  #(re-frame/dispatch [:profile.settings/update-value :profile-pictures-visibility
+                                    id])}])
 
 (views/defview profile-pic
   []

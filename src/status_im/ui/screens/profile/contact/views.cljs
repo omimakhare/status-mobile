@@ -7,13 +7,13 @@
             [quo2.theme :as theme]
             [re-frame.core :as re-frame]
             [reagent.core :as reagent]
-            [status-im.multiaccounts.core :as multiaccounts]
             [status-im.ui.components.keyboard-avoid-presentation :as kb-presentation]
             [status-im.ui.components.profile-header.view :as profile-header]
             [status-im.ui.components.react :as react]
             [status-im.ui.components.toolbar :as toolbar]
             [status-im.ui.components.topbar :as topbar]
             [status-im.ui.screens.profile.components.sheets :as sheets]
+            [status-im2.contexts.profile.utils :as profile.utils]
             [status-im2.constants :as constants]
             [utils.i18n :as i18n]
             [utils.re-frame :as rf]))
@@ -211,7 +211,7 @@
            :color
            (user-avatar.style/customization-color customization-color
                                                   (theme/get-theme))
-           :photo (multiaccounts/displayed-photo contact)
+           :photo (profile.utils/photo contact)
            :monospace (not ens-verified)
            :subtitle secondary-name
            :compressed-key compressed-key

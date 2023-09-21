@@ -6,9 +6,9 @@
             [react-native.core :as rn]
             [react-native.navigation :as navigation]
             [reagent.core :as reagent]
-            [status-im.multiaccounts.core :as multiaccounts]
             [status-im.ui.components.list-selection :as list-selection]
             [status-im2.common.qr-codes.view :as qr-codes]
+            [status-im2.contexts.profile.utils :as profile.utils]
             [status-im2.contexts.shell.share.style :as style]
             [utils.address :as address]
             [utils.i18n :as i18n]
@@ -49,7 +49,7 @@
          :as   profile}   (rf/sub [:profile/profile])
         qr-size           (int (- window-width 64))
         profile-url       (str image-server/status-profile-base-url compressed-key)
-        profile-photo-uri (:uri (multiaccounts/displayed-photo profile))
+        profile-photo-uri (:uri (profile.utils/photo profile))
         abbreviated-url   (address/get-abbreviated-profile-url
                            image-server/status-profile-base-url-without-https
                            compressed-key)

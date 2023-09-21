@@ -15,9 +15,3 @@
        res)
      ;;we want to keep data unchanged so react doesn't change component when we leave screen
      @memo-chats-stack-items)))
-
-(re-frame/reg-sub
- :hide-home-tooltip?
- :<- [:profile/profile]
- (fn [multiaccount]
-   (:hide-home-tooltip? multiaccount)))
