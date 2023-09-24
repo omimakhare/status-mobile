@@ -11,7 +11,6 @@
             [status-im.ethereum.stateofus :as stateofus]
             [utils.validators :as validators]
             [utils.url :as url]
-            [status-im.utils.wallet-connect :as wallet-connect]
             [taoensso.timbre :as log]
             [utils.security.core :as security]
             [utils.ethereum.chain :as chain]

@@ -191,12 +191,10 @@
                     accessory-style)}
      [rn/view {:style (:tiny spacing/padding-horizontal)}
       (case accessory
-        :radio    [controls/radio {:value active :disabled disabled}]
-        :checkbox [(if animated-accessory?
-                     controls/animated-checkbox
-                     controls/checkbox)
+        :radio    [controls/radio-view {:value active :disabled disabled}]
+        :checkbox [(controls/checkbox)
                    {:value active :disabled disabled}]
-        :switch   [controls/switch {:value active :disabled disabled}]
+        :switch   [controls/switch-view {:value active :disabled disabled}]
         :text     [text/text
                    {:color           :secondary
                     :ellipsize-mode  :middle

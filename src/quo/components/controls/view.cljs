@@ -102,8 +102,8 @@
    [animated/view {:style (styles/animated-check-icon-style transition hold)}
     [icons/tiny-icon :tiny-icons/tiny-check {:color colors/white}]]])
 
-(def switch (reagent/adapt-react-class (react/memo (control-builder switch-view))))
-(def radio (reagent/adapt-react-class (react/memo (control-builder radio-view))))
-(def animated-checkbox
-  (reagent/adapt-react-class (react/memo (control-builder animated-checkbox-view))))
+;(def switch (reagent/adapt-react-class (react/memo (control-builder switch-view))))
+;(def radio (reagent/adapt-react-class (react/memo (control-builder radio-view))))
+;(def animated-checkbox
+;  (reagent/adapt-react-class (react/memo (control-builder animated-checkbox-view))))
 (def checkbox (reagent/adapt-react-class (react/memo checkbox-view)))
