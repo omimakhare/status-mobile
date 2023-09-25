@@ -192,7 +192,8 @@
            (clj->js opts)
            (clj->js config)))
 
-(def extrapolate {:clamp (oget Extrapolate "CLAMP")})
+;(def extrapolate {:clamp (oget Extrapolate "CLAMP")})
+(def extrapolate {:clamp Extrapolate})
 
 ;;; utilities
 

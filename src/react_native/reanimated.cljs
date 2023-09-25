@@ -31,8 +31,8 @@
 
 ;;;; LinearTransition is deprecated
 ;;;; https://github.com/software-mansion/react-native-reanimated/issues/4362#issuecomment-1508682400
-;;;; temporarily using FadeIn as a replacement to Linear Transition
-(def linear-transition FadeIn)
+;;;; temporarily using SlideOutUp as a replacement to Linear Transition
+(def linear-transition SlideOutUp)
 
 ;; Animated Components
 (def create-animated-component (comp reagent/adapt-react-class (.-createAnimatedComponent reanimated)))
