@@ -6,6 +6,7 @@
             [status-im2.common.parallax.view :as parallax]
             [status-im2.common.parallax.whitelist :as whitelist]
             [status-im2.common.resources :as resources]
+            [status-im2.navigation.state :as state]
             [status-im2.contexts.onboarding.enable-biometrics.style :as style]
             [utils.i18n :as i18n]
             [utils.re-frame :as rf]))
@@ -35,7 +36,10 @@
       {:accessibility-label :maybe-later-button
        :background          :blur
        :type                :grey
-       :on-press            #(rf/dispatch [:onboarding-2/create-account-and-login])
+       :on-press            #(rf/dispatch (if (= :syncing-results @state/root-id)
+                                            [:navigate-to-within-stack
+                                             [:enable-notifications :enable-biometrics]]
+                                            [:onboarding-2/create-account-and-login]))
        :container-style     {:margin-top 12}}
       (i18n/label :t/maybe-later)]]))
 
