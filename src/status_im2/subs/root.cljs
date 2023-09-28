@@ -195,6 +195,10 @@
 (reg-root-key-sub :wallet/swap-to-token-amount :wallet/swap-to-token-amount)
 (reg-root-key-sub :wallet/swap-advanced-mode? :wallet/swap-advanced-mode?)
 
+;;; Wallet 2
+(reg-root-key-sub :wallet-2/tokens :wallet-2/tokens)
+(reg-root-key-sub :wallet-2/tokens-loading? :wallet-2/tokens-loading?)
+
 ;;; Link previews
 
 (reg-root-key-sub :link-previews-whitelist :link-previews-whitelist)
