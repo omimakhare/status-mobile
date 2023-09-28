@@ -45,7 +45,7 @@
         valid-ens?  (reagent/atom false)
         input-value (atom "")]
     [quo/address-input
-     {:on-scan #(js/alert "Not implemented yet")
+     {:on-scan #(rf/dispatch [:open-modal :scan-address])
       :ens-regex constants/regx-ens
       :on-detect-ens
       (fn [_]
