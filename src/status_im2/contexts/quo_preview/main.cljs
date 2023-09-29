@@ -171,6 +171,7 @@
     [status-im2.contexts.quo-preview.wallet.transaction-summary :as
      transaction-summary]
     [status-im2.contexts.quo-preview.wallet.wallet-overview :as wallet-overview]
+    [status-im2.contexts.quo-preview.wallet.network-routing :as network-routing]
     [utils.re-frame :as rf]))
 
 (def screens-categories
@@ -438,6 +439,7 @@
                        {:name :network-amount :component network-amount/preview}
                        {:name :network-bridge :component network-bridge/preview}
                        {:name :network-link :component network-link/preview}
+                       {:name :network-routing :component network-routing/preview}
                        {:name :progress-bar :component progress-bar/preview}
                        {:name :summary-info :component summary-info/preview}
                        {:name :token-input :component token-input/preview}
