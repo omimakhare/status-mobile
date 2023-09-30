@@ -155,7 +155,9 @@
     :or   {bg-color-animation-duration 1000}
     :as   data}]
   (let [animated-bg-color (reanimated/use-shared-value
-                           style/system-message-deleted-animation-start-bg-color)
+                           (if animate-bg-color?
+                             style/system-message-deleted-animation-start-bg-color
+                             style/system-message-deleted-animation-end-bg-color))
         wrapper           (if (or on-long-press animate-bg-color?)
                             reanimated/touchable-opacity
                             rn/view)
@@ -174,7 +176,7 @@
        bg-color-animation-duration))
 
     [wrapper
-     {:style         (if animate-bg-color?
+     {:style         (if (or on-long-press animate-bg-color?)
                        animated-style
                        style/system-message-wrapper)
       :on-long-press on-long-press}
