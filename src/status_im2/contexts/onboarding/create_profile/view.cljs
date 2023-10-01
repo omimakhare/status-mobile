@@ -197,11 +197,11 @@
             {:size   :paragraph-2
              :weight :medium
              :style  style/color-title}
-            (i18n/label :t/accent-colour)]
-           [quo/color-picker
-            {:blur?            true
-             :default-selected :blue
-             :on-change        on-change}]]]]]
+            (i18n/label :t/accent-colour)]]]
+         [quo/color-picker
+          {:blur?            true
+           :default-selected :blue
+           :on-change        on-change}]]]
 
        [rn/keyboard-avoiding-view
         {:style          {:position :absolute
