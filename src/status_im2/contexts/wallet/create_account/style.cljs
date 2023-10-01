@@ -24,7 +24,7 @@
    :padding-bottom     16})
 
 (def color-picker-container
-  {:padding-vertical   12})
+  {:padding-vertical 12})
 
 (defn color-label
   [theme]
