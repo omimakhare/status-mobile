@@ -7,6 +7,7 @@
             [quo.haptic :as haptic]
             [quo.platform :as platform]
             [quo.react-native :as rn]
+            [status-im.ui.components.react :as react]
             [status-im.ui.components.icons.icons :as icons]))
 
 (defn themes
@@ -196,7 +197,7 @@
         :radio    [controls/radio-view {:value active :disabled disabled}]
         :checkbox [(controls/checkbox)
                    {:value active :disabled disabled}]
-        :switch   [controls/switch-view {:value active :disabled disabled}]
+        :switch   [react/switch {:on-value-change on-press :disabled disabled :value active}]
         :text     [text/text
                    {:color           :secondary
                     :ellipsize-mode  :middle
