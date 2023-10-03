@@ -12,7 +12,7 @@
             [reagent.core :as reagent]
             [status-im2.common.device-permissions :as device-permissions]
             [status-im2.contexts.wallet.scan-account.style :as style]
-            [status-im2.contexts.syncing.utils :as sync-utils]
+            [utils.address :as address-utils]
             [utils.debounce :as debounce]
             [utils.i18n :as i18n]
             [utils.re-frame :as rf]
@@ -89,7 +89,6 @@
     :on-layout (fn [event]
                  (let [layout      (transforms/js->clj (oops/oget event "nativeEvent.layout"))
                        view-finder (assoc layout :height (:width layout))]
-                   (println view-finder "dsadasdasdsa")
                    (reset! qr-view-finder view-finder)))}])
 
 (defn- white-border
@@ -113,7 +112,6 @@
 (defn- viewfinder
   [qr-view-finder]
   (let [layout-size (+ (:width qr-view-finder) 2)]
-    (println qr-view-finder "qr-view-finder-dsadsads")
     [rn/view {:style (style/viewfinder-container qr-view-finder)}
      [white-square layout-size]
      [quo/text
@@ -131,14 +129,14 @@
 
 (defn- check-qr-code-and-navigate
   [{:keys [event on-success-scan on-failed-scan]}]
-  (let [connection-string        (string/trim (oops/oget event "nativeEvent.codeStringValue"))
-        valid-connection-string? (sync-utils/valid-connection-string? connection-string)]
+  (let [scanned-address (string/trim (oops/oget event "nativeEvent.codeStringValue"))
+        valid-address?  (address-utils/address? scanned-address)]
     ;; debounce-and-dispatch used because the QR code scanner performs callbacks too fast
-    (if valid-connection-string?
+    (if valid-address?
       (do
         (on-success-scan)
         (debounce/debounce-and-dispatch
-         [:syncing/input-connection-string-for-bootstrapping connection-string]
+         [:wallet-2/scan-address-success scanned-address]
          300))
       (do
         (on-failed-scan)
@@ -147,7 +145,7 @@
           {:icon       :i/info
            :icon-color colors/danger-50
            :theme      :dark
-           :text       (i18n/label :t/error-this-is-not-a-sync-qr-code)}]
+           :text       (i18n/label :t/oops-this-qr-does-not-contain-an-address)}]
          300)))))
 
 (defn- render-camera
@@ -213,10 +211,10 @@
             {:torch-mode            torch-mode
              :qr-view-finder        @qr-view-finder
              :scan-code?            @scan-code?
-             :set-qr-code-succeeded #(reset! qr-code-succeed? true)
+             :set-qr-code-succeeded #(rf/dispatch [:navigate-back])
              :set-rescan-timeout    set-rescan-timeout}])
          [rn/view {:style (style/root-container (:top insets))}
-          [header {:title "Scan QR"}]
+          [header {:title (i18n/label :t/scan-qr)}]
           (when (empty? @qr-view-finder)
             [:<>
              [rn/view {:style style/scan-qr-code-container}]

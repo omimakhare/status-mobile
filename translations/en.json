@@ -1226,8 +1226,8 @@
     "save-password-unavailable": "Set device passcode to save password",
     "save-password-unavailable-android": "Save password is unavailable: your device may be rooted or lacks necessary security features.",
     "scan-or-enter-sync-code": "Scan or enter sync code",
-    "scan-qr": "Scan QR code",
-    "scan-qr-code": "Scan a QR code with a wallet address",
+    "scan-qr": "Scan QR",
+    "scan-qr-code": "Scan QR code",
     "search": "Search",
     "search-discover-communities": "Search communities or categories",
     "secret-keys-confirmation-text": "You will need them to continue to use your Keycard in case you ever lose your phone.",
@@ -2344,5 +2344,6 @@
     "show-address-qr": "Show address QR",
     "scan-sync-code-placeholder": "cs2:4FH...",
     "visit-dapp": "Visit dApp",
-    "disconnect-dapp": "Disconnect dApp"
+    "disconnect-dapp": "Disconnect dApp",
+    "oops-this-qr-does-not-contain-an-address": "Oops! This QR not contain an address"
 }

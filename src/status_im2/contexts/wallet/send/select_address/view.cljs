@@ -41,27 +41,34 @@
 
 (defn- address-input
   []
-  (let [timer       (atom nil)
-        valid-ens?  (reagent/atom false)
-        input-value (atom "")]
+  (let [timer           (atom nil)
+        valid-ens?      (reagent/atom false)
+        input-value     (atom "")
+        scanned-address (rf/sub [:wallet-2/scanned-address])]
     [quo/address-input
      {:on-scan #(rf/dispatch [:open-modal :scan-address])
       :ens-regex constants/regx-ens
+      :scanned-value scanned-address
       :on-detect-ens
       (fn [_]
         (reset! valid-ens? false)
         (when @timer (js/clearTimeout @timer))
         (reset! timer (js/setTimeout #(reset! valid-ens? true) 2000)))
-      :on-change-text #(reset! input-value %)
+      :on-change-text (fn [text]
+                        (when-not (= scanned-address text)
+                          (rf/dispatch [:wallet-2/clean-scanned-address]))
+                        (reset! input-value text))
+      :on-clear #(rf/dispatch [:wallet-2/clean-scanned-address])
       :valid-ens? @valid-ens?}]))
 
-(defn- view-internal
+(defn- f-view-internal
   []
   (let [margin-top    (safe-area/get-top)
         selected-tab  (reagent/atom (:id (first tabs-data)))
         on-close      #(rf/dispatch [:navigate-back])
         on-change-tab #(reset! selected-tab %)]
     (fn []
+      (rn/use-effect (fn [] #(rf/dispatch [:wallet-2/clean-scanned-address])))
       [rn/scroll-view
        {:content-container-style      (style/container margin-top)
         :keyboard-should-persist-taps :never
@@ -87,5 +94,9 @@
          :scroll-on-press? true
          :on-change        on-change-tab}]
        [tab-view @selected-tab]])))
+
+(defn view-internal
+  []
+  [:f> f-view-internal])
 
 (def view (quo.theme/with-theme view-internal))
