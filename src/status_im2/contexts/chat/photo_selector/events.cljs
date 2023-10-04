@@ -90,14 +90,7 @@
 (rf/defn on-camera-roll-get-albums
   {:events [:on-camera-roll-get-albums]}
   [{:keys [db]} albums]
-  {:db (-> db
-           (assoc :camera-roll/albums albums)
-           (assoc :camera-roll/total-photos-count
-                  (reduce
-                   (fn [total-album-count curr-album]
-                     (+ total-album-count (:count curr-album)))
-                   0
-                   (:my-albums albums))))})
+  {:db (assoc db :camera-roll/albums albums)})
 
 (rf/defn camera-roll-get-albums
   {:events [:photo-selector/camera-roll-get-albums]}
