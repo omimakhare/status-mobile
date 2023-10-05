@@ -10,7 +10,7 @@
 (h/describe "Address input"
   (h/test "default render"
     (with-redefs [clipboard/get-string #(% "")]
-      (h/render [address-input/address-input {:ens-regex ens-regex}])
+      (h/render [address-input/address-input])
       (h/is-truthy (h/get-by-label-text :address-text-input))))
 
   (h/test "on focus with blur? false"
