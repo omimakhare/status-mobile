@@ -64,8 +64,10 @@
                  ens-regex address-regex
                  valid-ens-or-address?]}]
       (let [on-change              (fn [text]
-                                     (let [ens?     (boolean (re-matches ens-regex text))
-                                           address? (boolean (re-matches address-regex text))]
+                                     (let [ens?     (when ens-regex
+                                                      (boolean (re-matches ens-regex text)))
+                                           address? (when address-regex
+                                                      (boolean (re-matches address-regex text)))]
                                        (if (> (count text) 0)
                                          (reset! status :typing)
                                          (reset! status :active))
