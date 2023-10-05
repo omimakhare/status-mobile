@@ -8,7 +8,8 @@
             [reagent.core :as reagent]
             [status-im2.contexts.contacts.drawers.nickname-drawer.style :as style]
             [utils.i18n :as i18n]
-            [utils.re-frame :as rf]))
+            [utils.re-frame :as rf]
+            [status-im2.constants :as constants]))
 
 (defn add-nickname-and-show-toast
   [primary-name entered-nickname public-key]
@@ -53,7 +54,9 @@
          :blur?             true
          :placeholder       (i18n/label :t/type-nickname)
          :auto-focus        true
-         :max-length        32
+         :max-length        constants/profile-name-max-length
+         :label             (i18n/label :t/nickname)
+         :char-limit        constants/profile-name-max-length
          :on-change-text    (fn [nickname]
                               (reset! entered-nickname nickname))
          :on-submit-editing #(add-nickname-and-show-toast primary-name @entered-nickname public-key)}]

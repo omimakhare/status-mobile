@@ -3,14 +3,14 @@
             [quo2.components.icon :as icons]
             [quo2.components.markdown.text :as text]
             [quo2.components.messages.author.style :as style]
-            [quo2.foundations.colors :as colors]
-            [react-native.core :as rn]))
+            [react-native.core :as rn]
+            [quo2.theme :as quo.theme]))
 
 (def middle-dot "·")
 
-(defn author
+(defn- internal-view
   [{:keys [primary-name secondary-name style short-chat-key time-str contact? verified? untrustworthy?
-           muted? size]
+           muted? size theme]
     :or   {size 13}}]
   [rn/view {:style (merge style/container style {:height (if (= size 15) 21.75 18.2)})}
    [text/text
@@ -18,24 +18,21 @@
      :size                (if (= size 15) :paragraph-1 :paragraph-2)
      :number-of-lines     1
      :accessibility-label :author-primary-name
-     :style               {:color (if muted?
-                                    colors/neutral-50
-                                    (colors/theme-colors colors/neutral-100 colors/white))}}
+     :style               (style/primary-name muted? theme)}
     primary-name]
    (when (not (string/blank? secondary-name))
      [:<>
       [text/text
        {:size            :label
         :number-of-lines 1
-        :style           (style/middle-dot-nickname)}
+        :style           (style/middle-dot-nickname theme)}
        middle-dot]
       [text/text
        {:weight              :medium
         :size                :label
         :number-of-lines     1
         :accessibility-label :author-secondary-name
-        :style               {:padding-top 1
-                              :color       (colors/theme-colors colors/neutral-50 colors/neutral-40)}}
+        :style               (style/secondary-name theme)}
        secondary-name]])
    (when contact?
      [icons/icon :main-icons2/contact
@@ -58,14 +55,14 @@
       {:monospace       true
        :size            :label
        :number-of-lines 1
-       :style           (style/chat-key-text)}
+       :style           (style/chat-key-text theme)}
       short-chat-key])
    (when (and (not verified?) time-str short-chat-key)
      [text/text
       {:monospace       true
        :size            :label
        :number-of-lines 1
-       :style           (style/middle-dot-chat-key)}
+       :style           (style/middle-dot-chat-key theme)}
       middle-dot])
    (when time-str
      [text/text
@@ -73,5 +70,7 @@
        :size                :label
        :accessibility-label :message-timestamp
        :number-of-lines     1
-       :style               (style/time-text verified?)}
+       :style               (style/time-text verified? theme)}
       time-str])])
+
+(def view (quo.theme/with-theme internal-view))

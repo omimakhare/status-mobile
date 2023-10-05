@@ -313,7 +313,7 @@
 (def soundtrack quo2.components.record-audio.soundtrack.view/f-soundtrack)
 
 ;;;; Selectors
-(def author quo2.components.messages.author.view/author)
+(def author quo2.components.messages.author.view/view)
 (def disclaimer quo2.components.selectors.disclaimer.view/view)
 (def filter quo2.components.selectors.filter.view/view)
 (def reactions-selector quo2.components.selectors.reactions-selector.view/view)
