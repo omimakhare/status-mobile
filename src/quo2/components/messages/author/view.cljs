@@ -70,7 +70,7 @@
        :size                :label
        :accessibility-label :message-timestamp
        :number-of-lines     1
-       :style               (style/time-text verified? theme)}
+       :style               (style/time-text theme)}
       time-str])])
 
 (def view (quo.theme/with-theme internal-view))

@@ -40,7 +40,7 @@
   {:margin-left 4})
 
 (defn time-text
-  [verified? theme]
+  [theme]
   {:color       (colors/theme-colors colors/neutral-40 colors/neutral-50 theme)
    :padding-top 1
-   :margin-left (if verified? 8 4)})
+   :margin-left 8})
