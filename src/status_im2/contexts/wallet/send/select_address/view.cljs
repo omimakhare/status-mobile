@@ -45,21 +45,22 @@
         valid-ens?      (reagent/atom false)
         input-value     (atom "")
         scanned-address (rf/sub [:wallet-2/scanned-address])]
-    [quo/address-input
-     {:on-scan #(rf/dispatch [:open-modal :scan-address])
-      :ens-regex constants/regx-ens
-      :scanned-value scanned-address
-      :on-detect-ens
-      (fn [_]
-        (reset! valid-ens? false)
-        (when @timer (js/clearTimeout @timer))
-        (reset! timer (js/setTimeout #(reset! valid-ens? true) 2000)))
-      :on-change-text (fn [text]
-                        (when-not (= scanned-address text)
-                          (rf/dispatch [:wallet-2/clean-scanned-address]))
-                        (reset! input-value text))
-      :on-clear #(rf/dispatch [:wallet-2/clean-scanned-address])
-      :valid-ens? @valid-ens?}]))
+    (fn []
+      [quo/address-input
+       {:on-scan #(rf/dispatch [:open-modal :scan-address])
+        :ens-regex constants/regx-ens
+        :scanned-value scanned-address
+        :on-detect-ens
+        (fn [_]
+          (reset! valid-ens? false)
+          (when @timer (js/clearTimeout @timer))
+          (reset! timer (js/setTimeout #(reset! valid-ens? true) 2000)))
+        :on-change-text (fn [text]
+                          (when-not (= scanned-address text)
+                            (rf/dispatch [:wallet-2/clean-scanned-address]))
+                          (reset! input-value text))
+        :on-clear #(rf/dispatch [:wallet-2/clean-scanned-address])
+        :valid-ens? @valid-ens?}])))
 
 (defn- f-view-internal
   []
@@ -77,7 +78,11 @@
         {:icon-name           :i/close
          :on-press            on-close
          :accessibility-label :top-bar
-         :right-side          :account-switcher}]
+         :right-side          :account-switcher
+         :account-switcher    {:customization-color :purple
+                               :on-press            #(js/alert "Not implemented yet")
+                               :state               :default
+                               :emoji               "🍑"}}]
        [quo/text-combinations
         {:title                     (i18n/label :t/send-to)
          :container-style           style/title-container

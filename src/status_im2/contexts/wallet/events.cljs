@@ -1,6 +1,5 @@
 (ns status-im2.contexts.wallet.events
-  (:require [utils.re-frame :as rf]
-            [taoensso.timbre :as log]))
+  (:require [utils.re-frame :as rf]))
 
 (rf/defn scan-address-success
   {:events [:wallet-2/scan-address-success]}
@@ -10,5 +9,4 @@
 (rf/defn clean-scanned-address
   {:events [:wallet-2/clean-scanned-address]}
   [{:keys [db]}]
-  (println "cclean-scanned-address")
   {:db (dissoc db :wallet-2/scanned-address)})
