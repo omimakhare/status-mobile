@@ -40,10 +40,8 @@
                        :container-style style/empty-container-style}]))
 
 (defn- address-input
-  []
+  [input-value input-focused? valid-ens-or-address?]
   (let [timer                    (atom nil)
-        valid-ens-or-address?    (reagent/atom false)
-        input-value              (atom "")
         on-detect-address-or-ens (fn [_]
                                    (reset! valid-ens-or-address? false)
                                    (when @timer (js/clearTimeout @timer))
@@ -52,7 +50,9 @@
     (fn []
       (let [scanned-address (rf/sub [:wallet-2/scanned-address])]
         [quo/address-input
-         {:on-scan               #(rf/dispatch [:open-modal :scan-address])
+         {:on-focus              #(reset! input-focused? true)
+          :on-blur               #(reset! input-focused? false)
+          :on-scan               #(rf/dispatch [:open-modal :scan-address])
           :ens-regex             constants/regx-ens
           :address-regex         constants/regx-address
           :scanned-value         scanned-address
@@ -61,16 +61,19 @@
           :on-change-text        (fn [text]
                                    (when-not (= scanned-address text)
                                      (rf/dispatch [:wallet-2/clean-scanned-address]))
+                                   (reset! valid-ens-or-address? false)
                                    (reset! input-value text))
-          :on-clear              #(rf/dispatch [:wallet-2/clean-scanned-address])
           :valid-ens-or-address? @valid-ens-or-address?}]))))
 
 (defn- f-view-internal
   []
-  (let [margin-top    (safe-area/get-top)
-        selected-tab  (reagent/atom (:id (first tabs-data)))
-        on-close      #(rf/dispatch [:navigate-back])
-        on-change-tab #(reset! selected-tab %)]
+  (let [margin-top            (safe-area/get-top)
+        selected-tab          (reagent/atom (:id (first tabs-data)))
+        on-close              #(rf/dispatch [:navigate-back])
+        on-change-tab         #(reset! selected-tab %)
+        input-value           (reagent/atom "")
+        input-focused?        (reagent/atom false)
+        valid-ens-or-address? (reagent/atom false)]
     (fn []
       (rn/use-effect (fn [] #(rf/dispatch [:wallet-2/clean-scanned-address])))
       [rn/scroll-view
@@ -90,18 +93,31 @@
         {:title                     (i18n/label :t/send-to)
          :container-style           style/title-container
          :title-accessibility-label :title-label}]
-       [address-input]
+       [address-input input-value input-focused? valid-ens-or-address?]
        [quo/divider-line]
-       [quo/tabs
-        {:style            style/tabs
-         :container-style  style/tabs-content
-         :size             32
-         :default-active   @selected-tab
-         :data             tabs-data
-         :scrollable?      true
-         :scroll-on-press? true
-         :on-change        on-change-tab}]
-       [tab-view @selected-tab]])))
+       (if (or @input-focused? (> (count @input-value) 0))
+         [rn/keyboard-avoiding-view
+          {:style                    {:flex 1}
+           :keyboard-vertical-offset 26}
+          [rn/view {:style {:flex 1}}]
+          (when (> (count @input-value) 0)
+            [quo/button
+             {:accessibility-label :continue-button
+              :type                :primary
+              :disabled?           (not @valid-ens-or-address?)
+              :container-style     style/button}
+             (i18n/label :t/continue)])]
+         [:<>
+          [quo/tabs
+           {:style            style/tabs
+            :container-style  style/tabs-content
+            :size             32
+            :default-active   @selected-tab
+            :data             tabs-data
+            :scrollable?      true
+            :scroll-on-press? true
+            :on-change        on-change-tab}]
+          [tab-view @selected-tab]])])))
 
 (defn view-internal
   []
