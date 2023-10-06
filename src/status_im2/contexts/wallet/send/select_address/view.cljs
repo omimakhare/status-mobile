@@ -44,26 +44,26 @@
   (let [timer                    (atom nil)
         valid-ens-or-address?    (reagent/atom false)
         input-value              (atom "")
-        scanned-address          (rf/sub [:wallet-2/scanned-address])
         on-detect-address-or-ens (fn [_]
                                    (reset! valid-ens-or-address? false)
                                    (when @timer (js/clearTimeout @timer))
                                    (reset! timer (js/setTimeout #(reset! valid-ens-or-address? true)
                                                                 2000)))]
     (fn []
-      [quo/address-input
-       {:on-scan               #(rf/dispatch [:open-modal :scan-address])
-        :ens-regex             constants/regx-ens
-        :address-regex         constants/regx-address
-        :scanned-value         scanned-address
-        :on-detect-ens         on-detect-address-or-ens
-        :on-detect-address     on-detect-address-or-ens
-        :on-change-text        (fn [text]
-                                 (when-not (= scanned-address text)
-                                   (rf/dispatch [:wallet-2/clean-scanned-address]))
-                                 (reset! input-value text))
-        :on-clear              #(rf/dispatch [:wallet-2/clean-scanned-address])
-        :valid-ens-or-address? @valid-ens-or-address?}])))
+      (let [scanned-address (rf/sub [:wallet-2/scanned-address])]
+        [quo/address-input
+         {:on-scan               #(rf/dispatch [:open-modal :scan-address])
+          :ens-regex             constants/regx-ens
+          :address-regex         constants/regx-address
+          :scanned-value         scanned-address
+          :on-detect-ens         on-detect-address-or-ens
+          :on-detect-address     on-detect-address-or-ens
+          :on-change-text        (fn [text]
+                                   (when-not (= scanned-address text)
+                                     (rf/dispatch [:wallet-2/clean-scanned-address]))
+                                   (reset! input-value text))
+          :on-clear              #(rf/dispatch [:wallet-2/clean-scanned-address])
+          :valid-ens-or-address? @valid-ens-or-address?}]))))
 
 (defn- f-view-internal
   []

@@ -1,4 +1,4 @@
-(ns status-im2.contexts.wallet.scan-account.style
+(ns status-im2.common.scan-qr-code.style
   (:require [quo2.foundations.colors :as colors]))
 
 (def background
