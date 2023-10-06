@@ -20,4 +20,3 @@
             effects     (events/clean-scanned-address {:db db})
             result-db   (:db effects)]
         (is (= result-db expected-db))))))
-

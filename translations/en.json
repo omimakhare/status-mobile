@@ -2334,5 +2334,6 @@
     "eth-or-ens": "ETH address or ENS name.",
     "type-pairing-code": "Type or paste pairing code",
     "scan-sync-code-placeholder": "cs2:4FH...",
-    "oops-this-qr-does-not-contain-an-address": "Oops! This QR not contain an address"
+    "oops-this-qr-does-not-contain-an-address": "Oops! This QR not contain an address",
+    "scan-an-account-qr-code": "Scan an account QR code"
 }
