@@ -21,3 +21,9 @@
   (-> (.save CameraRoll (clj->js path))
       (.then #(fs/unlink path))
       (.catch #(fs/unlink path))))
+
+(defn get-photos-count-ios
+  [cb]
+  (-> (.getPhotosCountiOS CameraRoll)
+      (.then #(cb %))
+      (.catch #(js/console.error %))))
