@@ -1,28 +1,43 @@
 (ns quo2.components.colors.color.style
   (:require [quo2.foundations.colors :as colors]))
 
-(def color-button-common
-  {:width             48
-   :height            48
+(defn color-button-common [window-width]
+  {:width             (if window-width
+                        (/ window-width 7.8125)
+                        48)
+   :height            (if window-width
+                        (/ window-width 7.8125)
+                        48)
    :border-width      4
+   :margin-horizontal (/ window-width 93.75)
    :border-radius     24
-   :margin-horizontal 4
    :transform         [{:rotate "45deg"}]
    :border-color      :transparent})
 
 (defn color-button
-  [color selected?]
-  (merge color-button-common
-         (when selected?
-           {:border-top-color    (colors/alpha color 0.4)
-            :border-end-color    (colors/alpha color 0.4)
-            :border-bottom-color (colors/alpha color 0.2)
-            :border-start-color  (colors/alpha color 0.2)})))
+  ([color selected?]
+   (color-button color selected? nil nil))
+  ([color selected? idx window-width]
+   (merge (color-button-common window-width)
+          (when selected?
+            {:border-top-color    (colors/alpha color 0.4)
+             :border-end-color    (colors/alpha color 0.4)
+             :border-bottom-color (colors/alpha color 0.2)
+             :border-start-color  (colors/alpha color 0.2)}
+            (when (zero? idx)
+              {:margin-left -4
+               :margin-right (/ window-width 93.75)})))))
 
 (defn color-circle
-  [color border?]
-  {:width            40
-   :height           40
+  ([color border?]
+   (color-circle color border? nil))
+  ([color border? window-width]
+  {:width            (if window-width
+                       (/ window-width 9.375)
+                       40)
+   :height           (if window-width
+                       (/ window-width 9.375)
+                       40)
    :transform        [{:rotate "-45deg"}]
    :background-color color
    :justify-content  :center
@@ -30,7 +45,7 @@
    :border-color     color
    :border-width     (if border? 2 0)
    :overflow         :hidden
-   :border-radius    20})
+   :border-radius    20}))
 
 (defn feng-shui
   [theme]

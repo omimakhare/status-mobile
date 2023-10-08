@@ -130,7 +130,8 @@
           {:keys [keyboard-shown keyboard-height]} (hooks/use-keyboard)
           show-background?                         (show-button-background keyboard-height
                                                                            keyboard-shown
-                                                                           @content-scroll-y)]
+                                                                           @content-scroll-y)
+          {window-width :width}                    (rn/get-window)]
       [rn/view {:style style/page-container}
        [quo/page-nav
         {:margin-top navigation-bar-top
@@ -168,9 +169,8 @@
                                      (rf/dispatch [:dismiss-keyboard])
                                      (rf/dispatch
                                       [:show-bottom-sheet
-                                       {:content
-                                        (fn []
-                                          [method-menu/view on-change-profile-pic])}]))
+                                       {:content (fn []
+                                                   [method-menu/view on-change-profile-pic])}]))
               :image-picker-props  {:profile-picture     (or
                                                           @profile-pic
                                                           (rf/sub
@@ -201,7 +201,9 @@
          [quo/color-picker
           {:blur?            true
            :default-selected :blue
-           :on-change        on-change}]]]
+           :on-change        on-change
+           :window-width     window-width
+           :container-style  {:padding-left (int (/ window-width 18.75))}}]]]
 
        [rn/keyboard-avoiding-view
         {:style          {:position :absolute
