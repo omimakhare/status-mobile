@@ -69,7 +69,7 @@
   []
   (let [margin-top    (safe-area/get-top)
         selected-tab  (reagent/atom (:id (first tabs-data)))
-        on-close      #(rf/dispatch [:navigate-back])
+        on-close      #(rf/dispatch [:dismiss-modal :wallet-select-address])
         on-change-tab #(reset! selected-tab %)]
     (fn []
       (rn/use-effect (fn [] #(rf/dispatch [:wallet-2/clean-scanned-address])))
