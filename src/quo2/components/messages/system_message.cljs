@@ -20,7 +20,7 @@
   [{:keys [icon color opacity]}]
   [rn/view
    {:margin-right 8}
-   [icon-avatar/icon-avatar
+   [icon-avatar/view
     {:size    :size-32
      :icon    icon
      :color   color
