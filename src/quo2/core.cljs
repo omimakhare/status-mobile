@@ -357,7 +357,7 @@
 (def tag quo2.components.tags.tag/tag)
 (def tags quo2.components.tags.tags/tags)
 (def tiny-tag quo2.components.tags.tiny-tag.view/view)
-(def token-tag quo2.components.tags.token-tag/tag)
+(def token-tag quo2.components.tags.token-tag/token-tag)
 
 ;;;; Text combinations
 (def text-combinations quo2.components.text-combinations.view/view)
