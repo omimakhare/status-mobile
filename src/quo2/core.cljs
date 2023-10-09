@@ -99,12 +99,13 @@
     quo2.components.profile.profile-card.view
     quo2.components.profile.select-profile.view
     quo2.components.profile.showcase-nav.view
-    quo2.components.reactions.reaction
     quo2.components.record-audio.record-audio.view
     quo2.components.record-audio.soundtrack.view
     quo2.components.selectors.disclaimer.view
     quo2.components.selectors.filter.view
-    quo2.components.selectors.reactions.view
+    quo2.components.selectors.reactions-selector.view
+    quo2.components.selectors.react.view
+    quo2.components.selectors.react-selector.view
     quo2.components.selectors.selectors.view
     quo2.components.settings.accounts.view
     quo2.components.settings.data-item.view
@@ -307,10 +308,6 @@
 (def select-profile quo2.components.profile.select-profile.view/view)
 (def showcase-nav quo2.components.profile.showcase-nav.view/view)
 
-;;;; Reactions
-(def reaction quo2.components.reactions.reaction/reaction)
-(def add-reaction quo2.components.reactions.reaction/add-reaction)
-
 ;;;; Record Audio
 (def record-audio quo2.components.record-audio.record-audio.view/record-audio)
 (def soundtrack quo2.components.record-audio.soundtrack.view/f-soundtrack)
@@ -319,7 +316,9 @@
 (def author quo2.components.messages.author.view/author)
 (def disclaimer quo2.components.selectors.disclaimer.view/view)
 (def filter quo2.components.selectors.filter.view/view)
-(def reactions quo2.components.selectors.reactions.view/view)
+(def reactions-selector quo2.components.selectors.reactions-selector.view/view)
+(def react quo2.components.selectors.react.view/view)
+(def react-selector quo2.components.selectors.react-selector.view/view)
 (def checkbox quo2.components.selectors.selectors.view/checkbox)
 (def toggle quo2.components.selectors.selectors.view/toggle)
 (def radio quo2.components.selectors.selectors.view/radio)
@@ -335,7 +334,7 @@
 (def settings-item quo2.components.settings.settings-item.view/view)
 
 ;;;; Share
-(def qr-code quo2.components.share.qr-code.view/qr-code)
+(def qr-code quo2.components.share.qr-code.view/view)
 (def share-qr-code quo2.components.share.share-qr-code.view/view)
 
 ;;;; SWITCHER
