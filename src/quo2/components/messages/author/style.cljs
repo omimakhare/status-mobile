@@ -4,7 +4,7 @@
 (def container
   {:flex-wrap      :wrap
    :flex-direction :row
-   :align-items    :center})
+   :align-items    :flex-end})
 
 (defn middle-dot-nickname
   []
