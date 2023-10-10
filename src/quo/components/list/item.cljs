@@ -173,7 +173,9 @@
    [title-column props]])
 
 (defn right-side
-  [{:keys [chevron active disabled accessory accessory-text accessory-style animated-accessory?]}]
+  [{:keys [chevron active disabled accessory accessory-text accessory-style
+           ;           animated-accessory?
+           on-press]}]
   (when (or chevron accessory)
     [rn/view
      {:style (merge {:align-items     :center

@@ -16,7 +16,7 @@
                              cancelAnimation
                              SlideInUp
                              SlideOutUp
-                             FadeIn
+                             ;                             FadeIn
                              runOnJS)]
             [reagent.core :as reagent]
             ["react-native-redash" :refer (withPause)]

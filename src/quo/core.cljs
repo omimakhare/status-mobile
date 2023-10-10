@@ -1,5 +1,6 @@
 (ns quo.core
   (:require [quo.components.animated-header :as animated-header]
+            [quo.components.bottom-sheet.view :as bottom-sheet]
             [quo.components.button.view :as button]
             [quo.components.controls.view :as controls]
             [quo.components.header :as header]
@@ -22,6 +23,7 @@
 (def list-header list-header/header)
 (def list-footer list-footer/footer)
 (def list-item list-item/list-item)
+(def bottom-sheet bottom-sheet/bottom-sheet)
 (def list-index list-index/index)
 (def switch controls/switch-view)
 (def radio controls/radio-view)
