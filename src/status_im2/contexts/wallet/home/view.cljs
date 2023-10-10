@@ -57,10 +57,8 @@
     (.toFixed @total-values 2)))
 
 (defn refactor-data
-  []
-  (let [accounts            (rf/sub [:profile/wallet-accounts])
-        loading?            (rf/sub [:wallet-2/tokens-loading?])
-        refactored-accounts (mapv (fn [account]
+  [accounts loading?]
+  (let [refactored-accounts (mapv (fn [account]
                                     (merge account
                                            {:type                :empty
                                             :customization-color :blue
@@ -72,9 +70,10 @@
     (merge refactored-accounts add-account-placeholder)))
 
 (defn reagent-render
-  []
+  [accounts]
   (let [top          (safe-area/get-top)
-        selected-tab (reagent/atom (:id (first tabs-data)))]
+        selected-tab (reagent/atom (:id (first tabs-data)))
+        loading?     (rf/sub [:wallet-2/tokens-loading?])]
     (fn []
       [rn/view
        {:style {:margin-top top
@@ -87,7 +86,7 @@
         [quo/wallet-graph {:time-frame :empty}]]
        [rn/flat-list
         {:style      style/accounts-list
-         :data       (refactor-data)
+         :data       (refactor-data accounts loading?)
          :horizontal true
          :separator  [rn/view {:style {:width 12}}]
          :render-fn  quo/account-card}]
@@ -131,4 +130,4 @@
   (let [accounts (rf/sub [:profile/wallet-accounts])]
     (rf/dispatch [:wallet-2/get-wallet-tokens accounts])
     (fn []
-      [reagent-render])))
+      [reagent-render accounts])))
