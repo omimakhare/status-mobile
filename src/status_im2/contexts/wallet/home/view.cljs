@@ -74,60 +74,59 @@
   (let [top          (safe-area/get-top)
         selected-tab (reagent/atom (:id (first tabs-data)))
         loading?     (rf/sub [:wallet-2/tokens-loading?])]
-    (fn []
-      [rn/view
-       {:style {:margin-top top
-                :flex       1}}
-       [common.top-nav/view]
-       [rn/view {:style style/overview-container}
-        [quo/wallet-overview temp/wallet-overview-state]]
-       [rn/pressable
-        {:on-long-press #(rf/dispatch [:show-bottom-sheet {:content temp/wallet-temporary-navigation}])}
-        [quo/wallet-graph {:time-frame :empty}]]
-       [rn/flat-list
-        {:style      style/accounts-list
-         :data       (refactor-data accounts loading?)
-         :horizontal true
-         :separator  [rn/view {:style {:width 12}}]
-         :render-fn  quo/account-card}]
-       [quo/tabs
-        {:style          style/tabs
-         :size           32
-         :default-active @selected-tab
-         :data           tabs-data
-         :on-change      #(reset! selected-tab %)}]
-       (case @selected-tab
-         :assets       [rn/flat-list
-                        {:render-fn               quo/token-value
-                         :data                    temp/tokens
-                         :key                     :assets-list
+    [rn/view
+     {:style {:margin-top top
+              :flex       1}}
+     [common.top-nav/view]
+     [rn/view {:style style/overview-container}
+      [quo/wallet-overview temp/wallet-overview-state]]
+     [rn/pressable
+      {:on-long-press #(rf/dispatch [:show-bottom-sheet {:content temp/wallet-temporary-navigation}])}
+      [quo/wallet-graph {:time-frame :empty}]]
+     [rn/flat-list
+      {:style      style/accounts-list
+       :data       (refactor-data accounts loading?)
+       :horizontal true
+       :separator  [rn/view {:style {:width 12}}]
+       :render-fn  quo/account-card}]
+     [quo/tabs
+      {:style          style/tabs
+       :size           32
+       :default-active @selected-tab
+       :data           tabs-data
+       :on-change      #(reset! selected-tab %)}]
+     (case @selected-tab
+       :assets       [rn/flat-list
+                      {:render-fn               quo/token-value
+                       :data                    temp/tokens
+                       :key                     :assets-list
+                       :content-container-style {:padding-horizontal 8}}]
+       :collectibles (if temp/collectible-details
+                       [rn/flat-list
+                        {:render-fn               (fn [item]
+                                                    [quo/collectible
+                                                     {:images   [(:image item)]
+                                                      :on-press #(rf/dispatch [:navigate-to
+                                                                               :wallet-collectible])}])
+                         :data                    temp/collectibles
+                         :key                     :collectibles-list
+                         :key-fn                  :id
+                         :num-columns             2
                          :content-container-style {:padding-horizontal 8}}]
-         :collectibles (if temp/collectible-details
-                         [rn/flat-list
-                          {:render-fn               (fn [item]
-                                                      [quo/collectible
-                                                       {:images   [(:image item)]
-                                                        :on-press #(rf/dispatch [:navigate-to
-                                                                                 :wallet-collectible])}])
-                           :data                    temp/collectibles
-                           :key                     :collectibles-list
-                           :key-fn                  :id
-                           :num-columns             2
-                           :content-container-style {:padding-horizontal 8}}]
-                         [quo/empty-state
-                          {:title           (i18n/label :t/no-collectibles)
-                           :description     (i18n/label :t/no-collectibles-description)
-                           :placeholder?    true
-                           :container-style style/empty-container-style}])
-         [quo/empty-state
-          {:title           (i18n/label :t/no-activity)
-           :description     (i18n/label :t/empty-tab-description)
-           :placeholder?    true
-           :container-style style/empty-container-style}])])))
+                       [quo/empty-state
+                        {:title           (i18n/label :t/no-collectibles)
+                         :description     (i18n/label :t/no-collectibles-description)
+                         :placeholder?    true
+                         :container-style style/empty-container-style}])
+       [quo/empty-state
+        {:title           (i18n/label :t/no-activity)
+         :description     (i18n/label :t/empty-tab-description)
+         :placeholder?    true
+         :container-style style/empty-container-style}])]))
 
 (defn view
   []
   (let [accounts (rf/sub [:profile/wallet-accounts])]
-    (rf/dispatch [:wallet-2/get-wallet-tokens accounts])
+    (rf/dispatch [:wallet-2/get-wallet-token accounts])
     (fn []
       [reagent-render accounts])))
