@@ -19,9 +19,6 @@
           (map? view)
           (merge view)
 
-          (= view :mobile-network)
-          (merge mobile-network-settings/settings-sheet)
-
           (= view :mobile-network-offline)
           (merge mobile-network-settings/offline-sheet)
 
