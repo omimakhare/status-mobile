@@ -23,7 +23,8 @@
     status-im2.subs.toasts
     status-im2.subs.wallet.signing
     status-im2.subs.wallet.transactions
-    status-im2.subs.wallet.wallet))
+    status-im2.subs.wallet.wallet
+    status-im2.subs.wallet-2.wallet))
 
 (defn reg-root-key-sub
   [sub-name db-key]
