@@ -1,11 +1,12 @@
 (ns status-im.ui.screens.sync-settings.views
   (:require-macros [status-im.utils.views :as views])
-  (:require [quo.core :as quo]
-            [quo.design-system.colors :as colors]
-            [re-frame.core :as re-frame]
-            [status-im2.constants :as constants]
-            [utils.i18n :as i18n]
-            [status-im.ui.components.react :as react]))
+  (:require
+    [quo.core :as quo]
+    [quo.design-system.colors :as colors]
+    [re-frame.core :as re-frame]
+    [status-im.ui.components.react :as react]
+    [status-im2.constants :as constants]
+    [utils.i18n :as i18n]))
 
 (views/defview sync-settings
   []

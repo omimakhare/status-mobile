@@ -1,5 +1,6 @@
 (ns status-im2.subs.home
-  (:require [re-frame.core :as re-frame]))
+  (:require
+    [re-frame.core :as re-frame]))
 
 (def memo-chats-stack-items (atom nil))
 

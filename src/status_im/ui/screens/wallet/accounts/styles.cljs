@@ -1,7 +1,8 @@
 (ns status-im.ui.screens.wallet.accounts.styles
-  (:require [clojure.string :as string]
-            [quo.animated :as animated]
-            [quo.design-system.colors :as colors]))
+  (:require
+    [clojure.string :as string]
+    [quo.animated :as animated]
+    [quo.design-system.colors :as colors]))
 
 (def dot-size 6)
 

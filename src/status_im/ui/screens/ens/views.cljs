@@ -9,7 +9,6 @@
     [status-im.ethereum.ens :as ethereum.ens]
     [status-im.ethereum.stateofus :as stateofus]
     [status-im.ethereum.tokens :as tokens]
-    [utils.i18n :as i18n]
     [status-im.react-native.resources :as resources]
     [status-im.ui.components.chat-icon.screen :as chat-icon]
     [status-im.ui.components.checkbox.view :as checkbox]
@@ -22,8 +21,9 @@
     [status-im.ui.screens.profile.components.views :as profile.components]
     [status-im.ui.screens.wallet.send.sheets :as sheets]
     [status-im.utils.utils :as utils]
+    [utils.address :as address]
     [utils.debounce :as debounce]
-    [utils.address :as address])
+    [utils.i18n :as i18n])
   (:require-macros [status-im.utils.views :as views]))
 
 (defn- link

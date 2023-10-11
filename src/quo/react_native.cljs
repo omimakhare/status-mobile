@@ -1,13 +1,14 @@
 (ns quo.react-native
-  (:require ["@react-native-community/hooks" :as hooks]
-            ["react-native" :as rn]
-            ["react-native-draggable-flatlist" :default DraggableFlatList]
-            ["react-native-hole-view" :refer (RNHoleView)]
-            ["react-native-navigation" :refer (Navigation)]
-            ["rn-emoji-keyboard" :refer (EmojiKeyboard)]
-            [cljs-bean.core :as bean]
-            [quo.platform :as platform]
-            [reagent.core :as reagent]))
+  (:require
+    ["@react-native-community/hooks" :as hooks]
+    ["react-native" :as rn]
+    ["react-native-draggable-flatlist" :default DraggableFlatList]
+    ["react-native-hole-view" :refer (RNHoleView)]
+    ["react-native-navigation" :refer (Navigation)]
+    ["rn-emoji-keyboard" :refer (EmojiKeyboard)]
+    [cljs-bean.core :as bean]
+    [quo.platform :as platform]
+    [reagent.core :as reagent]))
 
 (def hole-view (reagent/adapt-react-class RNHoleView))
 

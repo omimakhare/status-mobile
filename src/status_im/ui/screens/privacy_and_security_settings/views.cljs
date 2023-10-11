@@ -1,14 +1,15 @@
 (ns status-im.ui.screens.privacy-and-security-settings.views
-  (:require [quo.core :as quo]
-            [re-frame.core :as re-frame]
-            [status-im2.constants :as constants]
-            [utils.i18n :as i18n]
-            [status-im.multiaccounts.reset-password.core :as reset-password]
-            [status-im.multiaccounts.update.core :as multiaccounts.update]
-            [status-im.ui.components.common.common :as components.common]
-            [status-im.ui.components.react :as react]
-            [status-im2.config :as config]
-            [react-native.platform :as platform])
+  (:require
+    [quo.core :as quo]
+    [re-frame.core :as re-frame]
+    [react-native.platform :as platform]
+    [status-im.multiaccounts.reset-password.core :as reset-password]
+    [status-im.multiaccounts.update.core :as multiaccounts.update]
+    [status-im.ui.components.common.common :as components.common]
+    [status-im.ui.components.react :as react]
+    [status-im2.config :as config]
+    [status-im2.constants :as constants]
+    [utils.i18n :as i18n])
   (:require-macros [status-im.utils.views :as views]))
 
 (defn separator

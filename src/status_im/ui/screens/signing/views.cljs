@@ -5,9 +5,9 @@
     [quo.core :as quo]
     [quo.design-system.colors :as colors]
     [re-frame.core :as re-frame]
+    [react-native.platform :as platform]
     [reagent.core :as reagent]
     [status-im.ethereum.tokens :as tokens]
-    [utils.i18n :as i18n]
     [status-im.keycard.common :as keycard.common]
     [status-im.multiaccounts.core :as multiaccounts]
     [status-im.react-native.resources :as resources]
@@ -22,10 +22,10 @@
     [status-im.ui.screens.signing.sheets :as sheets]
     [status-im.ui.screens.signing.styles :as styles]
     [status-im.ui.screens.wallet.components.views :as wallet.components]
-    [react-native.platform :as platform]
     [status-im.utils.deprecated-types :as types]
     [status-im.utils.utils :as utils]
     [status-im.wallet.utils :as wallet.utils]
+    [utils.i18n :as i18n]
     [utils.security.core :as security]))
 
 (defn separator

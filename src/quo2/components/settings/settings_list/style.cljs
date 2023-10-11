@@ -1,5 +1,6 @@
 (ns quo2.components.settings.settings-list.style
-  (:require [quo2.foundations.colors :as colors]))
+  (:require
+    [quo2.foundations.colors :as colors]))
 
 (def title-container
   {:flex 1})

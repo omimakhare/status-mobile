@@ -1,5 +1,6 @@
 (ns quo.haptic
-  (:require [react-native-haptic-feedback :default react-native-haptic-feedback]))
+  (:require
+    [react-native-haptic-feedback :default react-native-haptic-feedback]))
 
 (def haptic-methods
   {:selection            "selection"

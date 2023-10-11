@@ -5,10 +5,10 @@
     [quo2.foundations.resources :as quo.resources]
     [react-native.core :as rn]
     [status-im2.common.resources :as resources]
+    [status-im2.common.resources :as status.resources]
     [status-im2.constants :as constants]
     [status-im2.contexts.wallet.common.utils :as utils]
     [utils.i18n :as i18n]
-    [status-im2.common.resources :as status.resources]
     [utils.re-frame :as rf]))
 
 (def networks

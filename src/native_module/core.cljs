@@ -1,11 +1,12 @@
 (ns native-module.core
-  (:require ["react-native" :as react-native]
-            [utils.validators :as validators]
-            [taoensso.timbre :as log]
-            [react-native.platform :as platform]
-            [react-native.core :as rn]
-            [utils.transforms :as types]
-            [clojure.string :as string]))
+  (:require
+    ["react-native" :as react-native]
+    [clojure.string :as string]
+    [react-native.core :as rn]
+    [react-native.platform :as platform]
+    [taoensso.timbre :as log]
+    [utils.transforms :as types]
+    [utils.validators :as validators]))
 
 (defn status
   []

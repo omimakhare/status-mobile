@@ -1,7 +1,8 @@
 (ns quo.react
   (:refer-clojure :exclude [ref])
-  (:require ["react" :as react]
-            [oops.core :refer [oget oset!]])
+  (:require
+    ["react" :as react]
+    [oops.core :refer [oget oset!]])
   (:require-macros [quo.react :refer [with-deps-check maybe-js-deps]]))
 
 (def create-ref react/createRef)

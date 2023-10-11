@@ -1,5 +1,6 @@
 (ns quo.platform
-  (:require ["react-native" :as rn]))
+  (:require
+    ["react-native" :as rn]))
 
 (def platform (.-Platform ^js rn))
 

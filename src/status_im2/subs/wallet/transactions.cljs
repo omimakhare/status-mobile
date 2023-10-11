@@ -1,12 +1,13 @@
 (ns status-im2.subs.wallet.transactions
-  (:require [re-frame.core :as re-frame]
-            [status-im.ethereum.transactions.core :as transactions]
-            [utils.i18n :as i18n]
-            [status-im.notifications.core :as notifications]
-            [utils.datetime :as datetime]
-            [utils.money :as money]
-            [status-im.wallet.db :as wallet.db]
-            [status-im.wallet.utils :as wallet.utils]))
+  (:require
+    [re-frame.core :as re-frame]
+    [status-im.ethereum.transactions.core :as transactions]
+    [status-im.notifications.core :as notifications]
+    [status-im.wallet.db :as wallet.db]
+    [status-im.wallet.utils :as wallet.utils]
+    [utils.datetime :as datetime]
+    [utils.i18n :as i18n]
+    [utils.money :as money]))
 
 (re-frame/reg-sub
  :wallet/accounts

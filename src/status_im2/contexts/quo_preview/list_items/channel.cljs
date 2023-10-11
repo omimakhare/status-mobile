@@ -1,8 +1,9 @@
 (ns status-im2.contexts.quo-preview.list-items.channel
-  (:require [quo2.core :as quo]
-            [reagent.core :as reagent]
-            [status-im2.contexts.quo-preview.preview :as preview]
-            [quo2.foundations.colors :as colors]))
+  (:require
+    [quo2.core :as quo]
+    [quo2.foundations.colors :as colors]
+    [reagent.core :as reagent]
+    [status-im2.contexts.quo-preview.preview :as preview]))
 
 (def descriptor
   [{:key  :name

@@ -1,5 +1,6 @@
 (ns status-im2.subs.search
-  (:require [clojure.string :as string])
+  (:require
+    [clojure.string :as string])
   (:require [clojure.string :as string]
             [re-frame.core :as re-frame]
             [status-im.utils.currency :as currency]))

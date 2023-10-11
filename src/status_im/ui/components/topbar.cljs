@@ -1,8 +1,9 @@
 (ns status-im.ui.components.topbar
-  (:require [re-frame.core :as re-frame]
-            [quo.core :as quo]
-            [quo2.foundations.colors :as quo2.colors]
-            [react-native.safe-area :as safe-area]))
+  (:require
+    [quo.core :as quo]
+    [quo2.foundations.colors :as quo2.colors]
+    [re-frame.core :as re-frame]
+    [react-native.safe-area :as safe-area]))
 
 (def default-button-width 48)
 

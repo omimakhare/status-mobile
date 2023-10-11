@@ -1,9 +1,10 @@
 (ns status-im2.contexts.quo-preview.settings.settings-list
-  (:require [quo2.components.settings.settings-list.view :as quo]
-            [react-native.core :as rn]
-            [status-im2.common.resources :as resources]
-            [reagent.core :as reagent]
-            [status-im2.contexts.quo-preview.preview :as preview]))
+  (:require
+    [quo2.components.settings.settings-list.view :as quo]
+    [react-native.core :as rn]
+    [reagent.core :as reagent]
+    [status-im2.common.resources :as resources]
+    [status-im2.contexts.quo-preview.preview :as preview]))
 
 (def descriptor
   [{:label "Account name:"

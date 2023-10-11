@@ -1,10 +1,11 @@
 (ns status-im.ui.screens.chat.sheets
-  (:require [quo.core :as quo]
-            [re-frame.core :as re-frame]
-            [status-im2.constants :as constants]
-            [utils.i18n :as i18n]
-            [status-im.ui.components.chat-icon.screen :as chat-icon]
-            [status-im.ui.components.react :as react]))
+  (:require
+    [quo.core :as quo]
+    [re-frame.core :as re-frame]
+    [status-im.ui.components.chat-icon.screen :as chat-icon]
+    [status-im.ui.components.react :as react]
+    [status-im2.constants :as constants]
+    [utils.i18n :as i18n]))
 
 (defn hide-sheet-and-dispatch
   [event]

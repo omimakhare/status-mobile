@@ -2,6 +2,9 @@
   (:require
     [quo.design-system.colors :as quo.colors]
     [quo.react-native :as rn]
+    [quo2.core :as quo]
+    [quo2.foundations.colors :as colors]
+    [quo2.foundations.typography :as typography]
     [status-im.react-native.resources :as resources]
     [status-im.ui.components.fast-image :as fast-image]
     [status-im.ui.screens.chat.message.gap :as message.gap]
@@ -11,10 +14,7 @@
     [status-im2.contexts.chat.messages.delete-message-for-me.events]
     [status-im2.contexts.chat.messages.delete-message.events]
     [utils.i18n :as i18n]
-    [utils.re-frame :as rf]
-    [quo2.core :as quo]
-    [quo2.foundations.colors :as colors]
-    [quo2.foundations.typography :as typography])
+    [utils.re-frame :as rf])
   (:require-macros [status-im.utils.views :refer [defview letsubs]]))
 
 (defn system-text?

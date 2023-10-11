@@ -1,11 +1,12 @@
 (ns status-im.ui.screens.privacy-and-security-settings.messages-from-contacts-only
   (:require-macros [status-im.utils.views :as views])
-  (:require [quo.core :as quo]
-            [re-frame.core :as re-frame]
-            [utils.i18n :as i18n]
-            [status-im.multiaccounts.update.core :as multiaccounts.update]
-            [status-im.ui.components.react :as react]
-            [utils.re-frame :as rf]))
+  (:require
+    [quo.core :as quo]
+    [re-frame.core :as re-frame]
+    [status-im.multiaccounts.update.core :as multiaccounts.update]
+    [status-im.ui.components.react :as react]
+    [utils.i18n :as i18n]
+    [utils.re-frame :as rf]))
 
 (rf/defn handle-messages-from-contacts-only-switched
   {:events [::messages-from-contacts-only-switched]}

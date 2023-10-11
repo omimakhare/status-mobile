@@ -1,11 +1,11 @@
 (ns status-im2.contexts.quo-preview.settings.reorder-item
   (:require
+    [quo2.components.settings.reorder-item.types :as types]
     [quo2.core :as quo]
-    [react-native.core :as rn]
-    [status-im2.common.resources :as resources]
-    [quo2.foundations.resources :as quo2.resources]
     [quo2.foundations.colors :as colors]
-    [quo2.components.settings.reorder-item.types :as types]))
+    [quo2.foundations.resources :as quo2.resources]
+    [react-native.core :as rn]
+    [status-im2.common.resources :as resources]))
 
 (def mock-data
   [{:id   1

@@ -1,9 +1,10 @@
 (ns status-im.ui.screens.bug-report
-  (:require [quo.core :as quo]
-            [quo.react-native :as react-native]
-            [re-frame.core :as re-frame]
-            [utils.i18n :as i18n]
-            [status-im.ui.components.topbar :as topbar]))
+  (:require
+    [quo.core :as quo]
+    [quo.react-native :as react-native]
+    [re-frame.core :as re-frame]
+    [status-im.ui.components.topbar :as topbar]
+    [utils.i18n :as i18n]))
 
 (defn bug-report
   []

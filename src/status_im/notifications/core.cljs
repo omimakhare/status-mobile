@@ -1,13 +1,14 @@
 (ns status-im.notifications.core
-  (:require ["@react-native-community/push-notification-ios" :default pn-ios]
-            [quo.platform :as platform]
-            [re-frame.core :as re-frame]
-            [status-im.multiaccounts.update.core :as multiaccounts.update]
-            [status-im.notifications.android :as pn-android]
-            [status-im.notifications.local :as local]
-            [status-im2.config :as config]
-            [utils.re-frame :as rf]
-            [taoensso.timbre :as log]))
+  (:require
+    ["@react-native-community/push-notification-ios" :default pn-ios]
+    [quo.platform :as platform]
+    [re-frame.core :as re-frame]
+    [status-im.multiaccounts.update.core :as multiaccounts.update]
+    [status-im.notifications.android :as pn-android]
+    [status-im.notifications.local :as local]
+    [status-im2.config :as config]
+    [taoensso.timbre :as log]
+    [utils.re-frame :as rf]))
 
 (def server-type-default 1)
 (def server-type-custom 2)

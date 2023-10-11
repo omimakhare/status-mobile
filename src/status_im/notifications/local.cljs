@@ -1,19 +1,20 @@
 (ns status-im.notifications.local
-  (:require ["@react-native-community/push-notification-ios" :default pn-ios]
-            [cljs-bean.core :as bean]
-            [clojure.string :as string]
-            [quo.platform :as platform]
-            [re-frame.core :as re-frame]
-            [react-native.async-storage :as async-storage]
-            [status-im.ethereum.decode :as decode]
-            [status-im.ethereum.tokens :as tokens]
-            [utils.i18n :as i18n]
-            [status-im.notifications.android :as pn-android]
-            [utils.re-frame :as rf]
-            [utils.money :as money]
-            [status-im.utils.deprecated-types :as types]
-            [status-im.utils.utils :as utils]
-            [react-native.core :as rn]))
+  (:require
+    ["@react-native-community/push-notification-ios" :default pn-ios]
+    [cljs-bean.core :as bean]
+    [clojure.string :as string]
+    [quo.platform :as platform]
+    [re-frame.core :as re-frame]
+    [react-native.async-storage :as async-storage]
+    [react-native.core :as rn]
+    [status-im.ethereum.decode :as decode]
+    [status-im.ethereum.tokens :as tokens]
+    [status-im.notifications.android :as pn-android]
+    [status-im.utils.deprecated-types :as types]
+    [status-im.utils.utils :as utils]
+    [utils.i18n :as i18n]
+    [utils.money :as money]
+    [utils.re-frame :as rf]))
 
 (def default-erc20-token
   {:symbol   :ERC20

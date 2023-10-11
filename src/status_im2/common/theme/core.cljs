@@ -1,10 +1,11 @@
 (ns status-im2.common.theme.core
-  (:require [quo.theme :as quo]
-            [quo2.theme :as quo2]
-            [utils.re-frame :as rf]
-            [oops.core :refer [oget]]
-            [react-native.core :as rn]
-            [react-native.platform :as platform]))
+  (:require
+    [oops.core :refer [oget]]
+    [quo.theme :as quo]
+    [quo2.theme :as quo2]
+    [react-native.core :as rn]
+    [react-native.platform :as platform]
+    [utils.re-frame :as rf]))
 
 (def device-theme (atom (rn/get-color-scheme)))
 

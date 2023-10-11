@@ -1,6 +1,7 @@
 (ns quo.theme
-  (:require [quo.design-system.colors :as colors]
-            [reagent.core :as reagent]))
+  (:require
+    [quo.design-system.colors :as colors]
+    [reagent.core :as reagent]))
 
 (def theme (reagent/atom nil))
 

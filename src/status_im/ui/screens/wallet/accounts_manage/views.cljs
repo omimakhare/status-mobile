@@ -1,11 +1,12 @@
 (ns status-im.ui.screens.wallet.accounts-manage.views
-  (:require [quo.core :as quo]
-            [quo.design-system.colors :as colors]
-            [reagent.core :as reagent]
-            [status-im.ui.components.icons.icons :as icons]
-            [status-im.ui.components.list.views :as list]
-            [utils.re-frame :as rf]
-            [status-im.utils.utils :as utils]))
+  (:require
+    [quo.core :as quo]
+    [quo.design-system.colors :as colors]
+    [reagent.core :as reagent]
+    [status-im.ui.components.icons.icons :as icons]
+    [status-im.ui.components.list.views :as list]
+    [status-im.utils.utils :as utils]
+    [utils.re-frame :as rf]))
 
 (defn render-account
   [_]

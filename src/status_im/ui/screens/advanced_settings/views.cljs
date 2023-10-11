@@ -1,8 +1,9 @@
 (ns status-im.ui.screens.advanced-settings.views
-  (:require [quo.core :as quo]
-            [re-frame.core :as re-frame]
-            [utils.i18n :as i18n]
-            [status-im.ui.components.list.views :as list])
+  (:require
+    [quo.core :as quo]
+    [re-frame.core :as re-frame]
+    [status-im.ui.components.list.views :as list]
+    [utils.i18n :as i18n])
   (:require-macros [status-im.utils.views :as views]))
 
 (defn- normal-mode-settings-data

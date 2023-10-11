@@ -1,12 +1,13 @@
 (ns quo.animated
   (:refer-clojure :exclude [abs set delay divide])
-  (:require ["react-native-reanimated" :default animated :refer (clockRunning EasingNode)]
-            ["react-native-redash/lib/module/v1" :as redash]
-            [oops.core :refer [ocall oget]]
-            [quo.gesture-handler :as gh]
-            quo.react
-            [quo.react-native :as rn]
-            [reagent.core :as reagent])
+  (:require
+    ["react-native-reanimated" :default animated :refer (clockRunning EasingNode)]
+    ["react-native-redash/lib/module/v1" :as redash]
+    [oops.core :refer [ocall oget]]
+    [quo.gesture-handler :as gh]
+    quo.react
+    [quo.react-native :as rn]
+    [reagent.core :as reagent])
   (:require-macros [quo.react :refer [maybe-js-deps]]))
 
 (def create-animated-component (comp reagent/adapt-react-class (.-createAnimatedComponent animated)))

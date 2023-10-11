@@ -1,17 +1,18 @@
 (ns quo.gesture-handler
-  (:require ["react-native-gesture-handler" :refer
-             (TapGestureHandler PanGestureHandler
-                                LongPressGestureHandler
-                                TouchableWithoutFeedback
-                                TouchableOpacity
-                                TouchableHighlight
-                                State
-                                NativeViewGestureHandler
-                                FlatList
-                                ScrollView)]
-            [oops.core :refer [oget]]
-            [quo.design-system.colors :as colors]
-            [reagent.core :as reagent]))
+  (:require
+    ["react-native-gesture-handler" :refer
+     (TapGestureHandler PanGestureHandler
+                        LongPressGestureHandler
+                        TouchableWithoutFeedback
+                        TouchableOpacity
+                        TouchableHighlight
+                        State
+                        NativeViewGestureHandler
+                        FlatList
+                        ScrollView)]
+    [oops.core :refer [oget]]
+    [quo.design-system.colors :as colors]
+    [reagent.core :as reagent]))
 
 (def flat-list-raw FlatList)
 

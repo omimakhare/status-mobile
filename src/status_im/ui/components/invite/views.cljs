@@ -1,7 +1,8 @@
 (ns status-im.ui.components.invite.views
-  (:require [quo.core :as quo]
-            [re-frame.core :as re-frame]
-            [utils.i18n :as i18n]))
+  (:require
+    [quo.core :as quo]
+    [re-frame.core :as re-frame]
+    [utils.i18n :as i18n]))
 
 (defn button
   []
