@@ -23,7 +23,9 @@
    :margin-left 4})
 
 (def icon-container
-  {:margin-left 4})
+  {:margin-left 4
+   :margin-top 4
+   :margin-bottom 2})
 
 (defn time-text
   [verified?]
