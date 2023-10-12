@@ -35,7 +35,8 @@
    {:id :collectibles :label (i18n/label :t/collectibles) :accessibility-label :collectibles-tab}
    {:id :activity :label (i18n/label :t/activity) :accessibility-label :activity-tab}])
 
-(defn get-balance [balances address]
+(defn get-balance
+  [balances address]
   (->> balances
        (filter #(= (:address %) address))
        first
@@ -50,7 +51,9 @@
                                            :on-press            #(rf/dispatch [:navigate-to
                                                                                :wallet-accounts])
                                            :loading?            loading?
-                                           :balance             (str "$" (get-balance balances (:address account)))))
+                                           :balance             (str "$"
+                                                                     (get-balance balances
+                                                                                  (:address account)))))
                                   accounts)]
     (conj refactored-accounts add-account-placeholder)))
 
