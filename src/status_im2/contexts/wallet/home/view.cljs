@@ -7,7 +7,6 @@
     [status-im2.common.home.top-nav.view :as common.top-nav]
     [status-im2.contexts.wallet.home.style :as style]
     [utils.i18n :as i18n]
-    [clojure.string :as string]
     [utils.re-frame :as rf]
     [status-im2.contexts.wallet.common.temp :as temp]))
 
@@ -36,31 +35,14 @@
    {:id :collectibles :label (i18n/label :t/collectibles) :accessibility-label :collectibles-tab}
    {:id :activity :label (i18n/label :t/activity) :accessibility-label :activity-tab}])
 
-(defn calculate-raw-balance
-  [raw-balance decimals]
-  (if (not (js/isNaN (js/parseInt raw-balance)))
-  (/ (js/parseInt raw-balance) (Math/pow 10 (js/parseInt decimals))) 0))
-
-(defn calculate-balance
-  [{:keys [address]}]
-  (let [tokens       (rf/sub [:wallet-2/tokens])
-        token        (get tokens (keyword (string/lower-case address)))
-        result       (reduce (fn [acc item]
-                               (let [total-value-per-token (reduce (fn [ac balances]
-                                                                     (+ (calculate-raw-balance (:rawBalance balances)
-                                                                                               (:decimals item))
-                                                                        ac))
-                                                                   0
-                                                                   (vals (:balancesPerChain item)))
-                                     total-values (* total-value-per-token
-                                                     (get-in item [:marketValuesPerCurrency :USD :price]))]
-                                 (+ acc total-values)))
-                             0
-                             token)] 
-    (.toFixed result 2)))
+(defn get-balance [balances address]
+  (->> balances
+       (filter #(= (:address %) address))
+       first
+       :balance))
 
 (defn refactor-data
-  [accounts loading?]
+  [accounts loading? balances]
   (let [refactored-accounts (mapv (fn [account]
                                     (assoc account
                                            :type                :empty
@@ -68,7 +50,7 @@
                                            :on-press            #(rf/dispatch [:navigate-to
                                                                                :wallet-accounts])
                                            :loading?            loading?
-                                           :balance             (str "$" (calculate-balance account))))
+                                           :balance             (str "$" (get-balance balances (:address account)))))
                                   accounts)]
     (conj refactored-accounts add-account-placeholder)))
 
@@ -76,7 +58,8 @@
   [accounts]
   (let [top          (safe-area/get-top)
         selected-tab (reagent/atom (:id (first tabs-data)))
-        loading?     (rf/sub [:wallet-2/tokens-loading?])]
+        loading?     (rf/sub [:wallet-2/tokens-loading?])
+        balances     (rf/sub [:wallet-2/balances])]
     [rn/view
      {:style {:margin-top top
               :flex       1}}
@@ -88,7 +71,7 @@
       [quo/wallet-graph {:time-frame :empty}]]
      [rn/flat-list
       {:style      style/accounts-list
-       :data       (refactor-data accounts loading?)
+       :data       (refactor-data accounts loading? balances)
        :horizontal true
        :separator  [rn/view {:style {:width 12}}]
        :render-fn  quo/account-card}]
