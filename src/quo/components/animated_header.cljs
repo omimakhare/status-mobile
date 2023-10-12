@@ -28,13 +28,7 @@
 
 (defn header-container
   []
-  (let [y         0 ;;(animated/value 0)
-        ;        animation-value (animated/value 0)
-        ;        animation       (animated/with-timing-transition
-        ;                         animation-value
-        ;                         {:duration 250
-        ;                          :easing   (:ease-in animated/easings)})
-        ;        on-scroll       (animated/on-scroll {:y y})
+  (let [y         0
         layout    (reagent/atom {})
         offset    (reagent/atom 0)
         on-layout (fn [evt]
@@ -43,15 +37,6 @@
       [animated/view
        {:flex           1
         :pointer-events :box-none}
-       ;commented out to upgrade react-native-reanimated to v3 and react-native to 0.72
-       ;TODO: replace this with an updated implementation
-       ;       [animated/code
-       ;        {:key  (str @offset)
-       ;         :exec (animated/cond*
-       ;                (animated/and* (animated/greater-or-eq y @offset)
-       ;                               (animated/greater-or-eq y 1))
-       ;                (animated/set animation-value 1)
-       ;                (animated/set animation-value 0))}]
        [animated/view
         {:pointer-events :box-none
          :style          (header-wrapper-style {:value  y
@@ -63,14 +48,12 @@
            :title-component [animated/view {:style (title-style @layout)}
                              [extended-header
                               {:value     y
-                               ;                               :animation animation
                                :minimized true
                                :offset    @offset}]]
            :title-align     :left}
           (dissoc props :extended-header))]]
        (into [animated/scroll-view
-              {;                       :on-scroll           on-scroll
-               :refreshControl      (when refresh-control
+              {:refreshControl      (when refresh-control
                                       (refresh-control
                                        (and @refreshing-sub
                                             @refreshing-counter)))
@@ -82,7 +65,6 @@
                  :on-layout      on-layout}
                 [extended-header
                  {:value  y
-                  ;                  :animation animation
                   :offset @offset}]]]]
              children)
       ])))

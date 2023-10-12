@@ -16,10 +16,6 @@
 (def text (reagent/adapt-react-class (.-Text animated)))
 (def scroll-view (reagent/adapt-react-class (.-ScrollView animated)))
 
-;;;; Animated.Code is deprecated with reanimated version 1.
-;;;; commented out to upgrade react-native-reanimated to v3 and react-native to 0.72
-;;;;; TODO: replace this with an updated implementation
-;(def code (reagent/adapt-react-class (.-Code animated)))
 (def animated-flat-list (create-animated-component gh/flat-list-raw))
 
 (defn flat-list
@@ -36,52 +32,6 @@
    (useCode
     (fn [] (setup-fn))
     (maybe-js-deps deps))))
-
-;;;; commented out to upgrade react-native-reanimated to v3 and react-native to 0.72
-;;;;; TODO: replace this with an updated implementation
-;;;ERROR  Error: Oops, Missing expected object key 'eq'
-;(def eq (oget animated "eq"))
-;;; ERROR  Error: Oops, Missing expected object key 'neq'
-;(def neq (oget animated "neq"))
-;;;ERROR  Error: Oops, Missing expected object key 'greaterThan'
-;(def greater (oget animated "greaterThan"))
-;;;ERROR  Error: Oops, Missing expected object key 'greaterOrEq'
-;(def greater-or-eq (oget animated "greaterOrEq"))
-;;;ERROR  Error: Oops, Missing expected object key 'lessThan'
-;(def less (oget animated "lessThan"))
-;;;ERROR  Error: Oops, Missing expected object key 'lessOrEq'
-;(def less-or-eq (oget animated "lessOrEq"))
-;;;ERROR  Error: Oops, Missing expected object key 'not'
-;(def not* (oget animated "not"))
-;;;ERROR  Error: Oops, Missing expected object key 'or'
-;(def or* (oget animated "or"))
-;;;ERROR  Error: Oops, Missing expected object key 'and'
-;(def and* (oget animated "and"))
-
-;;;ERROR  Error: Oops, Missing expected object key 'diff'
-;(def diff (oget animated "diff"))
-;;;ERROR  Error: Oops, Missing expected object key 'add'
-;(def add (oget animated "add"))
-;;;ERROR  Error: Oops, Missing expected object key 'add'
-;(def sub (oget animated "sub"))
-;;;ERROR  Error: Oops, Missing expected object key 'multiply'
-;(def multiply (oget animated "multiply"))
-;;;ERROR  Error: Oops, Missing expected object key 'divide'
-;(def divide (oget animated "divide"))
-;;;ERROR  Error: Oops, Missing expected object key 'abs'
-;(def abs (oget animated "abs"))
-
-;;;ERROR  Error: Oops, Missing expected object key 'min'
-;(def min* (oget animated "min"))
-;;;ERROR  Error: Oops, Missing expected object key 'max'
-;(def max* (oget animated "max"))
-
-;;;ERROR  Error: Oops, Missing expected object key 'set'
-;(def set (oget animated "set"))
-;;;ERROR  Error: Oops, Missing expected object key 'startClock'
-;(def start-clock (oget animated "startClock"))
-;;;ERROR  Error: Oops, Missing expected object key 'stopClock'
-;(def stop-clock (oget animated "stopClock"))
 
 (def clock-running clockRunning)
 
@@ -114,28 +64,6 @@
 (defn set-value
   [anim v]
   (ocall anim "setValue" v))
-
-;;;; commented out to upgrade react-native-reanimated to v3 and react-native to 0.72
-;;;;; TODO: replace this with an updated implementation
-;;;ERROR  Error: Oops, Missing expected object key 'Value'
-;(def Value (oget animated "Value"))
-;;;ERROR  Error: Oops, Missing expected object key 'Value'
-;(defn value
-;  [x]
-;  (new Value x))
-
-;;;ERROR  Error: Oops, Missing expected object key 'Clock'
-;(def Clock (oget animated "Clock"))
-;;;ERROR  Error: Oops, Missing expected object key 'Clock'
-;(defn clock
-;  []
-;  (new Clock))
-
-;;;ERROR  Error: Oops, Missing expected object key 'debug'
-;(def debug (oget animated "debug"))
-
-;;;ERROR  Error: Oops, Missing expected object key 'log'
-;(def log (oget animated "log"))
 ;
 (defn event
   ([config]
@@ -192,7 +120,6 @@
            (clj->js opts)
            (clj->js config)))
 
-;(def extrapolate {:clamp (oget Extrapolate "CLAMP")})
 (def extrapolate {:clamp Extrapolate})
 
 ;;; utilities

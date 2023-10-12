@@ -12,47 +12,20 @@
 (defn control-builder
   [component]
   (fn [props]
-    (let [{:keys [
-                  ;                   value
-                  onChange disabled]}
+    (let [{:keys [onChange disabled]}
           (bean/bean props)
           state 0
           tap-state (:undetermined gh/states)
           tap-handler (animated/on-gesture {:state tap-state})
           hold (react/use-memo
-                (fn []
-                    ;commented out to upgrade react-native-reanimated to v3 and react-native to 0.72
-                    ;TODO: replace this with an updated implementation
-                    ;                  (animated/with-timing-transition
-                    ;                   (animated/eq tap-state (:began gh/states))
-                    ;                   {})
-                )
+                (fn [])
                 [])
           transition (react/use-memo
                       (fn []
                         (animated/with-spring-transition state
                                                          (:lazy
                                                           animated/springs)))
-                      [])
-          ;commented out to upgrade react-native-reanimated to v3 and react-native to 0.72
-          ;TODO: replace this with an updated implementation
-          ;          press-end (fn []
-          ;                      (when (and (not disabled) onChange)
-          ;                        (onChange (not value))))
-         ]
-      ;commented out to upgrade react-native-reanimated to v3 and react-native to 0.72
-      ;TODO: replace this with an updated implementation
-      ;      (animated/code!
-      ;       (fn []
-      ;         (animated/cond* (animated/eq tap-state (:end gh/states))
-      ;                         [(animated/set state (animated/not* state))
-      ;                          (animated/set tap-state (:undetermined gh/states))
-      ;                          (animated/call* [] press-end)]))
-      ;       [press-end])
-      ;      (animated/code!
-      ;       (fn []
-      ;         (animated/set state (if (true? value) 1 0)))
-      ;       [value])
+                      [])]
       (reagent/as-element
        [gh/tap-gesture-handler
         (merge tap-handler
@@ -102,8 +75,4 @@
    [animated/view {:style (styles/animated-check-icon-style transition hold)}
     [icons/tiny-icon :tiny-icons/tiny-check {:color colors/white}]]])
 
-;(def switch (reagent/adapt-react-class (react/memo (control-builder switch-view))))
-;(def radio (reagent/adapt-react-class (react/memo (control-builder radio-view))))
-;(def animated-checkbox
-;  (reagent/adapt-react-class (react/memo (control-builder animated-checkbox-view))))
 (def checkbox (reagent/adapt-react-class (react/memo checkbox-view)))

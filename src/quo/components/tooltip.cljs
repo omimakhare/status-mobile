@@ -42,15 +42,10 @@
 (defn tooltip
   []
   (let [layout      (reagent/atom {:height initial-height})
-        ;commented out to upgrade react-native-reanimated to v3 and react-native to 0.72
-        ;TODO: replace this with an updated implementation
-        ;       animation-v (animated/value 0)
         animation-v 0
         animation   (animated/with-timing-transition
                      animation-v
-                     {:easing :deprecated
-                      ;                      (:ease-in animated/easings)
-                     })
+                     {:easing :deprecated})
         on-layout   (fn [evt]
                       (let [width  (oget evt "nativeEvent" "layout" "width")
                             height (oget evt "nativeEvent" "layout" "height")]
@@ -58,12 +53,6 @@
                                         :height height})))]
     (fn [{:keys [bottom-value accessibility-label]} & children]
       [:<>
-       ;commented out to upgrade react-native-reanimated to v3 and react-native to 0.72
-       ;TODO: replace this with an updated implementation
-       ;;;; Animated.Code is deprecated with reanimated version 1.
-       ;       [animated/code
-       ;        {:exec (animated/cond* (animated/not* animation-v)
-       ;                               (animated/set animation-v 1))}]
        [animated/view
         {:style          (tooltip-style {:bottom-value (- (get @layout :height)
                                                           bottom-value)
