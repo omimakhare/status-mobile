@@ -195,6 +195,9 @@
 (reg-root-key-sub :wallet/swap-to-token-amount :wallet/swap-to-token-amount)
 (reg-root-key-sub :wallet/swap-advanced-mode? :wallet/swap-advanced-mode?)
 
+;;; Wallet 2
+(reg-root-key-sub :wallet-2/create-account :wallet-2/create-account)
+
 ;;; Link previews
 
 (reg-root-key-sub :link-previews-whitelist :link-previews-whitelist)
