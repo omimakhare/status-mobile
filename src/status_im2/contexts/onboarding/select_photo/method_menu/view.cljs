@@ -4,7 +4,8 @@
     [utils.i18n :as i18n]
     ["react-native-image-crop-picker" :default image-picker]
     [status-im.multiaccounts.core]
-    [utils.re-frame :as rf]))
+    [utils.re-frame :as rf]
+    [taoensso.timbre :as log]))
 
 (def crop-size 1000)
 
@@ -30,7 +31,7 @@
        (.openPicker (clj->js (merge {:mediaType media-type}
                                     props)))
        (.then images-fn)
-       (.catch show-access-error))))
+       (.catch #(log/warn "Image Picker failed to open because ->" %)))))
 
 (defn show-image-picker-camera
   ([images-fn]
