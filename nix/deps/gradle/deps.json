@@ -9119,6 +9119,10 @@
         "sha1": "655d1f3c8c0962024e15044d4cb7f65c21277ea9",
         "sha256": "sha256-joHo+hJBRqr0qvWj0bSZuPEt/D3xay7/fiMC72pmxPA="
       },
+      "react-android-0.72.5.module": {
+        "sha1": "382107a4aec5b40acce40df4b8455b20fd7df364",
+        "sha256": "sha256-SGNLIxf+xvZ2/FVEwkD0nAoff8BITITzYkgNHQjc5DA="
+      },
       "react-android-0.72.5-debug.aar": {
         "sha1": "056ffe7b61f23d4884eb4cf2c1c8a8584fb63023",
         "sha256": "sha256-y14qr4bVlqxgI/BLuValUGb+BRKPUfalhX9ko4avUOw="
