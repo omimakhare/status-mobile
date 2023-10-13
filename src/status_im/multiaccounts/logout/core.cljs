@@ -28,15 +28,15 @@
   [{:keys [db] :as cofx} {:keys [auth-method logout?]}]
   (let [key-uid (get-in db [:profile/profile :key-uid])]
     (rf/merge cofx
-              {:set-root                             :progress
-               :chat.ui/clear-inputs                 nil
-               :shell/reset-state                    nil
-               :hide-popover                         nil
-               ::logout                              nil
+              {:set-root                               :progress
+               :chat.ui/clear-inputs                   nil
+               :shell/reset-state                      nil
+               :hide-popover                           nil
+               ::logout                                nil
                :profile.settings/webview-debug-changed false
-               :keychain/clear-user-password         key-uid
-               :profile/get-profiles-overview        #(rf/dispatch
-                                                       [:profile/get-profiles-overview-success %])}
+               :keychain/clear-user-password           key-uid
+               :profile/get-profiles-overview          #(rf/dispatch
+                                                         [:profile/get-profiles-overview-success %])}
               (keychain/save-auth-method key-uid auth-method)
               (wallet/clear-timeouts)
               (initialize-app-db))))
