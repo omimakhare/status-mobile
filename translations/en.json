@@ -2348,5 +2348,7 @@
     "edit-account": "Edit account",
     "share-account": "Share account",
     "remove-account": "Remove account",
-    "select-another-account": "Select another account"
+    "select-another-account": "Select another account",
+    "account-info": "Account info",
+    "account-name-input-placeholder": "Account name"
 }

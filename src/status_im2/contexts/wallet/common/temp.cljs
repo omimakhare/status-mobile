@@ -149,7 +149,7 @@
 (def data-item-state
   {:description         :default
    :icon-right?         true
-   :icon                :i/options
+   :right-icon          :i/options
    :card?               true
    :label               :none
    :status              :default
