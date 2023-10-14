@@ -2,11 +2,11 @@
   (:require [re-frame.core :as re-frame]
             [status-im.ethereum.transactions.core :as transactions]
             [utils.i18n :as i18n]
-            [status-im.notifications.core :as notifications]
             [utils.datetime :as datetime]
             [utils.money :as money]
             [status-im.wallet.db :as wallet.db]
-            [status-im.wallet.utils :as wallet.utils]))
+            [status-im.wallet.utils :as wallet.utils]
+            [status-im.notifications.wallet :as notifications.wallet]))
 
 (re-frame/reg-sub
  :wallet/accounts
@@ -42,7 +42,7 @@
         (if (= type :inbound)
           [from :from-contact :to-wallet]
           [to :to-contact :from-wallet])
-        wallet (i18n/label :main-wallet)
+        wallet (i18n/label :t/main-wallet)
         contact (get contacts contact-address)
         {:keys [symbol-display decimals] :as asset}
         (or token native-currency)
@@ -70,11 +70,7 @@
              (assoc acc
                     tx-hash
                     (enrich-transaction transaction contacts native-currency))) ;;TODO this doesn't
-           ;;look good for
-           ;;performance, we
-           ;;need to calculate
-           ;;this only once for
-           ;;each transaction
+           ;;look good for performance, we need to calculate this only once for each transaction
            {}
            transactions)))
 
@@ -210,12 +206,12 @@
                                  "-")
                :date           (datetime/timestamp->long-date timestamp)}
               (if (= type :unsigned)
-                {:block     (i18n/label :not-applicable)
-                 :cost      (i18n/label :not-applicable)
-                 :gas-limit (i18n/label :not-applicable)
-                 :gas-used  (i18n/label :not-applicable)
-                 :nonce     (i18n/label :not-applicable)
-                 :hash      (i18n/label :not-applicable)}
+                {:block     (i18n/label :t/not-applicable)
+                 :cost      (i18n/label :t/not-applicable)
+                 :gas-limit (i18n/label :t/not-applicable)
+                 :gas-used  (i18n/label :t/not-applicable)
+                 :nonce     (i18n/label :t/not-applicable)
+                 :hash      (i18n/label :t/not-applicable)}
                 {:cost (when gas-used
                          (money/wei->str :eth
                                          (money/fee-value gas-used gas-price)
@@ -240,11 +236,11 @@
               (* 100 (/ confirmations transactions/confirmations-count-threshold)))))))
 
 (re-frame/reg-sub
- :notifications/wallet-transactions
+ :push-notifications/wallet-transactions
  :<- [:push-notifications/preferences]
  (fn [pref]
-   (first (filter #(notifications/preference= %
-                                              {:service    "wallet"
-                                               :event      "transaction"
-                                               :identifier "all"})
+   (first (filter #(notifications.wallet/preference= %
+                                                     {:service    "wallet"
+                                                      :event      "transaction"
+                                                      :identifier "all"})
                   pref))))

@@ -84,6 +84,7 @@
      account-item]
     [status-im2.contexts.quo-preview.list-items.account-list-card :as
      account-list-card]
+    [status-im2.contexts.quo-preview.list-items.address :as address]
     [status-im2.contexts.quo-preview.list-items.channel :as channel]
     [status-im2.contexts.quo-preview.list-items.dapp :as dapp]
     [status-im2.contexts.quo-preview.list-items.preview-lists :as preview-lists]
@@ -146,6 +147,7 @@
     [status-im2.contexts.quo-preview.tags.permission-tag :as permission-tag]
     [status-im2.contexts.quo-preview.tags.status-tags :as status-tags]
     [status-im2.contexts.quo-preview.tags.tags :as tags]
+    [status-im2.contexts.quo-preview.tags.tiny-tag :as tiny-tag]
     [status-im2.contexts.quo-preview.tags.token-tag :as token-tag]
     [status-im2.contexts.quo-preview.text-combinations.preview :as
      text-combinations]
@@ -307,6 +309,8 @@
                         :component account-item/view}
                        {:name      :account-list-card
                         :component account-list-card/view}
+                       {:name      :address
+                        :component address/view}
                        {:name      :channel
                         :component channel/view}
                        {:name      :community-list
@@ -420,6 +424,8 @@
                         :component status-tags/preview-status-tags}
                        {:name      :tags
                         :component tags/preview-tags}
+                       {:name      :tiny-tag
+                        :component tiny-tag/preview-tiny-tag}
                        {:name      :token-tag
                         :component token-tag/preview-token-tag}]
    :text-combinations [{:name      :text-combinations

@@ -67,6 +67,7 @@
     quo2.components.links.url-preview.view
     quo2.components.list-items.account.view
     quo2.components.list-items.account-list-card.view
+    quo2.components.list-items.address.view
     quo2.components.list-items.channel.view
     quo2.components.list-items.community.view
     quo2.components.list-items.dapp.view
@@ -127,6 +128,7 @@
     quo2.components.tags.status-tags
     quo2.components.tags.tag
     quo2.components.tags.tags
+    quo2.components.tags.tiny-tag.view
     quo2.components.tags.token-tag
     quo2.components.text-combinations.view
     quo2.components.wallet.account-card.view
@@ -264,6 +266,7 @@
 ;;;; List items
 (def account-item quo2.components.list-items.account.view/view)
 (def account-list-card quo2.components.list-items.account-list-card.view/view)
+(def address quo2.components.list-items.address.view/view)
 (def channel quo2.components.list-items.channel.view/view)
 (def dapp quo2.components.list-items.dapp.view/view)
 (def menu-item quo2.components.list-items.menu-item/menu-item)
@@ -353,6 +356,7 @@
 (def status-tag quo2.components.tags.status-tags/status-tag)
 (def tag quo2.components.tags.tag/tag)
 (def tags quo2.components.tags.tags/tags)
+(def tiny-tag quo2.components.tags.tiny-tag.view/view)
 (def token-tag quo2.components.tags.token-tag/tag)
 
 ;;;; Text combinations
