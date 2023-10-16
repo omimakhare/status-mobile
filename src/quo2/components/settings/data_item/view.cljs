@@ -27,7 +27,7 @@
                    :color               icon-color}]
         :account [account-avatar/view
                   {:customization-color customization-color
-                   :size                16
+                   :size                :size-16
                    :emoji               emoji
                    :type                :default}]
         :network [rn/image

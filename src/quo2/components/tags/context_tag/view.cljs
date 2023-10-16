@@ -141,7 +141,7 @@
       [account-avatar/view
        {:customization-color customization-color
         :emoji               emoji
-        :size                (if (= size 24) 20 28)}]]
+        :size                (if (= size 24) :size-20 :size-28)}]]
 
      :address
      [address-tag props]
