@@ -1,6 +1,5 @@
 (ns status-im2.contexts.wallet.account.view
   (:require [quo2.core :as quo]
-            [quo2.foundations.resources :as quo.resources]
             [react-native.core :as rn]
             [react-native.safe-area :as safe-area]
             [reagent.core :as reagent]
@@ -39,11 +38,6 @@
      :render-fn (fn [account] [quo/account-item {:account-props account}])
      :style     {:margin-horizontal 8}}]])
 
-(def ^:private networks-list
-  [{:source (quo.resources/get-network :ethereum)}
-   {:source (quo.resources/get-network :optimism)}
-   {:source (quo.resources/get-network :arbitrum)}])
-
 (def tabs-data
   [{:id :assets :label (i18n/label :t/assets) :accessibility-label :assets-tab}
    {:id :collectibles :label (i18n/label :t/collectibles) :accessibility-label :collectibles-tab}
@@ -54,8 +48,9 @@
 
 (defn view
   []
-  (let [top          (safe-area/get-top)
-        selected-tab (reagent/atom (:id (first tabs-data)))]
+  (let [top           (safe-area/get-top)
+        selected-tab  (reagent/atom (:id (first tabs-data)))
+        networks-list (rf/sub [:wallet-2/network-details])]
     (fn []
       [rn/view
        {:style {:flex       1

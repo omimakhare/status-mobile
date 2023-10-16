@@ -23,7 +23,8 @@
     status-im2.subs.toasts
     status-im2.subs.wallet.signing
     status-im2.subs.wallet.transactions
-    status-im2.subs.wallet.wallet))
+    status-im2.subs.wallet.wallet
+    status-im2.subs.wallet-2.networks))
 
 (defn reg-root-key-sub
   [sub-name db-key]
@@ -194,6 +195,9 @@
 (reg-root-key-sub :wallet/swap-from-token-amount :wallet/swap-from-token-amount)
 (reg-root-key-sub :wallet/swap-to-token-amount :wallet/swap-to-token-amount)
 (reg-root-key-sub :wallet/swap-advanced-mode? :wallet/swap-advanced-mode?)
+
+;;; Wallet 2
+(reg-root-key-sub :wallet-2/networks :wallet-2/networks)
 
 ;;; Link previews
 

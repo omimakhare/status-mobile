@@ -25,6 +25,7 @@
     [status-im.data-store.switcher-cards :as switcher-cards-store]
     [status-im.browser.core :as browser]
     [status-im.group-chats.core :as group-chats]
+    [status-im2.contexts.wallet.events :as wallet-2]
     [status-im2.contexts.push-notifications.events :as notifications]))
 
 (re-frame/reg-fx
@@ -91,6 +92,7 @@
               (activity-center/notifications-fetch-pending-contact-requests)
               (activity-center/update-seen-state)
               (activity-center/notifications-fetch-unread-count)
+              (wallet-2/add-chains-to-db)
               (redirect-to-root))))
 
 ;; login phase 2, we want to load and show chats faster so we split login into 2 phases
