@@ -8,6 +8,8 @@
     [status-im2.contexts.wallet.home.style :as style]
     [utils.i18n :as i18n]
     [utils.re-frame :as rf]
+    [status-im2.contexts.wallet.common.collectibles.view :as collectibles]
+    [status-im2.contexts.wallet.common.activity.view :as activity]
     [status-im2.contexts.wallet.common.temp :as temp]))
 
 (defn new-account
@@ -76,25 +78,5 @@
                          :data                    temp/tokens
                          :key                     :assets-list
                          :content-container-style {:padding-horizontal 8}}]
-         :collectibles (if temp/collectible-details
-                         [rn/flat-list
-                          {:render-fn               (fn [item]
-                                                      [quo/collectible
-                                                       {:images   [(:image item)]
-                                                        :on-press #(rf/dispatch [:navigate-to
-                                                                                 :wallet-collectible])}])
-                           :data                    temp/collectibles
-                           :key                     :collectibles-list
-                           :key-fn                  :id
-                           :num-columns             2
-                           :content-container-style {:padding-horizontal 8}}]
-                         [quo/empty-state
-                          {:title           (i18n/label :t/no-collectibles)
-                           :description     (i18n/label :t/no-collectibles-description)
-                           :placeholder?    true
-                           :container-style style/empty-container-style}])
-         [quo/empty-state
-          {:title           (i18n/label :t/no-activity)
-           :description     (i18n/label :t/empty-tab-description)
-           :placeholder?    true
-           :container-style style/empty-container-style}])])))
+         :collectibles [collectibles/view]
+         [activity/view])])))
