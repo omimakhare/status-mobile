@@ -6,8 +6,8 @@
     [utils.i18n :as i18n]
     [status-im2.contexts.wallet.account.tabs.about.view :as about]
     [status-im2.contexts.wallet.account.tabs.dapps.view :as dapps]
-    [status-im2.contexts.wallet.common.collectibles.view :as collectibles]
-    [status-im2.contexts.wallet.common.activity.view :as activity]
+    [status-im2.contexts.wallet.common.collectibles-tab.view :as collectibles]
+    [status-im2.contexts.wallet.common.activity-tab.view :as activity]
     [status-im2.contexts.wallet.common.empty-tab.view :as empty-tab]))
 
 (defn view

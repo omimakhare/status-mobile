@@ -8,8 +8,8 @@
     [status-im2.contexts.wallet.home.style :as style]
     [utils.i18n :as i18n]
     [utils.re-frame :as rf]
-    [status-im2.contexts.wallet.common.collectibles.view :as collectibles]
-    [status-im2.contexts.wallet.common.activity.view :as activity]
+    [status-im2.contexts.wallet.common.collectibles-tab.view :as collectibles]
+    [status-im2.contexts.wallet.common.activity-tab.view :as activity]
     [status-im2.contexts.wallet.common.temp :as temp]))
 
 (defn new-account
