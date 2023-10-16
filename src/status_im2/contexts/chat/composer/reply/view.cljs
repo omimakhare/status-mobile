@@ -72,7 +72,7 @@
       {:full-name         display-name
        :profile-picture   photo-path
        :status-indicator? false
-       :size              :xxxs
+       :size              :size-16
        :ring?             false}]
      [quo/text
       {:weight          :semi-bold

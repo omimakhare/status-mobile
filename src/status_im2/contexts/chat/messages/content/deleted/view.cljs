@@ -18,7 +18,7 @@
       :profile-picture   profile-picture
       :status-indicator? false
       :ring?             false
-      :size              :xxxs}]]
+      :size              :size-16}]]
    [quo/text
     {:weight          :semi-bold
      :number-of-lines 1

@@ -15,7 +15,7 @@
     [quo/user-avatar
      {:full-name         display-name
       :profile-picture   photo-path
-      :size              :xxs
+      :size              :size-20
       :ring?             false
       :status-indicator? false}]))
 

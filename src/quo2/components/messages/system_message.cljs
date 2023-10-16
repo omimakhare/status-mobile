@@ -38,8 +38,8 @@
 (defn sm-user-avatar
   [display-name photo-path]
   [rn/view {:margin-right 4}
-   [user-avatar/user-avatar
-    {:size              :xxxs
+   [user-avatar/view
+    {:size              :size-16
      :full-name         display-name
      :profile-picture   photo-path
      :ring?             false
